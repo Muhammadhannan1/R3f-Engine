@@ -59,7 +59,7 @@ function App() {
           position: "absolute",
           zIndex: "1",
           padding: "1rem",
-          top: "10%",
+          top: "3%",
           backgroundColor: "black",
           width: "15%",
         }}
@@ -68,10 +68,10 @@ function App() {
           onClick={() => setRotaion(!rotation)}
           style={{
             width: "100%",
-            padding: "1rem",
+            padding: "0.5rem",
             borderRadius: "10px",
             backgroundColor: "burlywood",
-            fontSize: "20px",
+            fontSize: "19px",
             fontWeight: "bold",
             marginBottom:"10px"
           }}
