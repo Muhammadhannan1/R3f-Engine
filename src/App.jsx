@@ -312,7 +312,7 @@ function App() {
             </EffectComposer>
             <Loader meshName={meshName} boxRef={popUpBox} />
           </Selection>
-          {/* <Environment preset="sunset" background/> */}
+          <Environment preset="sunset" background/>
         </Suspense>
       </Canvas>
     </>
