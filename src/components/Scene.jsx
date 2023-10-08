@@ -8,7 +8,7 @@ import { Select} from '@react-three/postprocessing'
 // import { Outline } from "@react-three/postprocessing";
 
 export const Loader = ({ meshName, boxRef }) => {
-  const gltf = useLoader(GLTFLoader, "src/assets/models/engine.glb");
+  const gltf = useLoader(GLTFLoader, "/assets/models/engine.glb");
   const [mesh, setMesh] = useState(null);
   const [selectedMeshName, setSelectedMeshName] = useState(null);
   const { camera } = useThree();
