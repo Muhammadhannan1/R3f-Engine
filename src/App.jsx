@@ -15,7 +15,7 @@ import {
   EffectComposer,
   Outline,
 } from "@react-three/postprocessing";
-
+import { BlendFunction, Resizer, KernelSize } from 'postprocessing'
 const data = {
   B1_1_1: { plug: "B1_1", stage: "2", blades: "26", stage_2: "1" },
   B1_1_2: { plug: "B1_2", stage: "3", blades: "42", stage_2: "2" },
@@ -305,9 +305,14 @@ function App() {
           <Selection>
             <EffectComposer multisampling={8} autoClear={false}>
               <Outline
-                visibleEdgeColor="white"
-                edgeStrength={100}
-                width={500}
+              selectionLayer={100} 
+                visibleEdgeColor='green'
+                hiddenEdgeColor='green'
+                edgeStrength={50}
+                width={800}
+                blendFunction={BlendFunction.ALPHA}
+                pulseSpeed={1}
+                kernelSize={KernelSize.VERY_LARGE} 
               />
             </EffectComposer>
             <Loader meshName={meshName} boxRef={popUpBox} rotation={rotation}/>
