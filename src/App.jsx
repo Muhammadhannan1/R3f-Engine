@@ -35,8 +35,8 @@ const data = {
   B2_1_3: { plug: "B2_3", position: "7" },
   B2_1_4: { plug: "B2_4", position: "9:30" },
   B2_1_5: { plug: "B2_5", position: "11" },
-  B2_1_5: { plug: "B2_5", position: "11" },
-  B2_1_5: { plug: "B2_5", position: "11" },
+  // B2_1_5: { plug: "B2_5", position: "11" },
+  // B2_1_5: { plug: "B2_5", position: "11" },
   B3_1: { plug: "B3_1", stage: "1", blades: "80" },
   B3_2: { plug: "B3_2", stage: "2", blades: "74", stage_2: "1" },
   B4_1: { plug: "B4_1", stage: "1", blades: "118", stage_2: "2" },
@@ -136,7 +136,7 @@ function App() {
                   <li onClick={() => setName("B1_1_12")}>
                     <a href="#">B1-12</a>
                   </li>
-                  <li onClick={() => setName("B1_1_3")}>
+                  <li onClick={() => setName("B1_1_13")}>
                     <a href="#">B1-13</a>
                   </li>
                 </ul>
@@ -258,6 +258,7 @@ function App() {
         id="popUpBox"
         ref={popUpBox}
         style={{
+          zIndex:'1',
           position: "absolute",
           top: "8%",
           right: "5%",
@@ -297,23 +298,23 @@ function App() {
       {/* <Environment preset="sunset" background /> */}
       <Canvas>
         {/* <PerspectiveCamera makeDefault position={[0, 0, 5]} /> */}
-        <OrbitControls enablePan={false} enableRotate={rotation} />
+        
         <ambientLight intensity={0.7} />
         <pointLight position={[10, 10, 10]} />
         <Suspense fallback={null}>
           <Selection>
             <EffectComposer multisampling={8} autoClear={false}>
               <Outline
-                blur
                 visibleEdgeColor="white"
                 edgeStrength={100}
                 width={500}
               />
             </EffectComposer>
-            <Loader meshName={meshName} boxRef={popUpBox} />
+            <Loader meshName={meshName} boxRef={popUpBox} rotation={rotation}/>
           </Selection>
-          <Environment preset="sunset" background/>
+          <Environment files={'src/assets/models/Concrete_Shelter.exr'} background />
         </Suspense>
+        <OrbitControls enablePan={true} enableRotate={rotation} enableDamping={false}  />
       </Canvas>
     </>
   );
