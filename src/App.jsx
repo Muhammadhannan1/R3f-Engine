@@ -312,7 +312,7 @@ function App() {
             </EffectComposer>
             <Loader meshName={meshName} boxRef={popUpBox} rotation={rotation}/>
           </Selection>
-          <Environment files={'src/assets/models/Concrete_Shelter.exr'} background />
+          <Environment files={'/assets/models/Concrete_Shelter.exr'} background />
         </Suspense>
         <OrbitControls enablePan={true} enableRotate={rotation} enableDamping={false}  />
       </Canvas>
