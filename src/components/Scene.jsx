@@ -7,7 +7,7 @@ import { Vector3 } from "three";
 import { Select} from '@react-three/postprocessing'
 import { useGLTF } from '@react-three/drei'
 
-export const Loader = ({ meshName, boxRef,rotation },props) => {
+export const Loader = ({ meshName, boxRef,orbitRotation },props) => {
   const gltf = useLoader(GLTFLoader, "/assets/models/Engine.gltf");
   const [mesh, setMesh] = useState(null);
   const [selectedMeshName, setSelectedMeshName] = useState(null);
@@ -62,25 +62,18 @@ export const Loader = ({ meshName, boxRef,rotation },props) => {
           focusCameraOnObject(draggable.current)
       }
       }
-  const findMeshByName = (name) => {
-    const findMeshRecursive = (object, name) => {
-      if (object.name === name && object.isMesh) {
-        return object;
-      }
-      for (const child of object.children) {
-        const found = findMeshRecursive(child, name);
-        if (found) return found;
-      }
-      return null;
-    };
 
-    return findMeshRecursive(gltf.scene, name);
-  };
 
   const focusCameraOnObject = (objectToFocus) => {
     if (objectToFocus) {
-      const distance = 1; // Adjust the initial distance as needed for the desired zoom level
-      const targetPosition = objectToFocus.position.clone();
+      // const distance = 1; // Adjust the initial distance as needed for the desired zoom level
+      let targetPosition ;
+      if(meshName==='B1_1_1' || meshName==='B1_1_2'|| meshName==='B1_1_2_2'){
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-160, 8, 100));
+      }
+      else{
+        targetPosition = objectToFocus.position.clone();
+      }
       const duration = 1200; // Animation duration in milliseconds
       const startTime = performance.now(); // Record the start time
       // Function to update camera position and orientation
@@ -94,16 +87,17 @@ export const Loader = ({ meshName, boxRef,rotation },props) => {
         // Interpolate camera position
         camera.position.lerp(targetPosition, progress);
 
-        camera.lookAt(objectToFocus.position);
+        camera.lookAt(targetPosition);
         // camera.lookAt(targetPosition);
        camera.fov = 4; 
 
         if (progress < 1) {
           requestAnimationFrame(updateCamera);
         }
+
       };
       // Start the animation
-      updateCamera();
+      updateCamera();      
     }
   };
 
@@ -155,7 +149,7 @@ export const Loader = ({ meshName, boxRef,rotation },props) => {
   // console.log(gltf.scene.children[0].children[3].children[0].children[2])
   // console.log(gltf.scene.children[0].children[3].children[0])
   //console.log(useFullChildrens);
-  //console.log(gltf)
+  // console.log(gltf)
 // console.log(gltf.scene.children[0].children[3].children[0])
 // console.log(gltf.scene.children[0].children[3].children[0].name)
   //console.log(gltf.scene.children[0].children[3].children[0].children)
@@ -186,19 +180,21 @@ export const Loader = ({ meshName, boxRef,rotation },props) => {
       if (mesh) {
         // Do something with the found mesh, e.g., manipulate it
         //console.log("Found mesh:", mesh);
+        selectedObjectRef.current = mesh;  
+        console.log(mesh)
         focusCameraOnObject(mesh);
-         selectedObjectRef.current = mesh;  
         const box = boxRef.current;
         box.style.display = "block";
         // const effect  = new THREE.
         setSelectedMeshName(meshName);
         // console.log(`${selectedObjectRef.current.mesh}`);
       //  console.log("mesh: ",selectedObjectRef.current);
+      console.log(meshName)
       } else {
         console.log("Mesh not found");
       }
     }
-  }, [meshName,rotation]);
+  }, [meshName,orbitRotation]);
 
 
   return (
@@ -286,7 +282,7 @@ export const Loader = ({ meshName, boxRef,rotation },props) => {
               <Select enabled={meshName ==='B1_1_1'?true:false}>
               <mesh geometry={nodes.B1_1_1.geometry} material={materials['03 - Default']} position={[130.699, 35.159, -0.158]} scale={[2.5, 2.155, 2.155]} />
               </Select>
-              <Select enabled={meshName ==='B1_1_'?true:false}>
+              <Select enabled={meshName ==='B1_1_2_2'?true:false}>
               <mesh geometry={nodes.B1_1_2_2.geometry} material={materials['03 - Default']} position={[98.502, 34.747, 0.9]} scale={[2.5, 2.155, 2.155]} />
               </Select>
               <Select enabled={meshName ==='B1_1_3'?true:false}>

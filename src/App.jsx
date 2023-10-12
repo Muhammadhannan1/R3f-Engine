@@ -16,32 +16,32 @@ import {
   Outline,
 } from "@react-three/postprocessing";
 import { BlendFunction, Resizer, KernelSize } from 'postprocessing'
+import Spinner from "./components/Spinner";
 const data = {
-  B1_1_1: { plug: "B1_1", stage: "2", blades: "26", stage_2: "1" },
-  B1_1_2: { plug: "B1_2", stage: "3", blades: "42", stage_2: "2" },
-  B1_1_3: { plug: "B1_3", stage: "4", blades: "46", stage_2: "3" },
-  B1_1_4: { plug: "B1_4", stage: "5", blades: "48", stage_2: "4" },
-  B1_1_5: { plug: "B1_5", stage: "6", blades: "54", stage_2: "5" },
-  B1_1_6: { plug: "B1_6", stage: "7", blades: "56", stage_2: "6" },
-  B1_1_7: { plug: "B1_7", stage: "8", blades: "64", stage_2: "7" },
-  B1_1_8: { plug: "B1_8", stage: "9", blades: "66", stage_2: "8" },
-  B1_1_9: { plug: "B1_9", stage: "10", blades: "66", stage_2: "9" },
-  B1_1_10: { plug: "B1_10", stage: "11", blades: "76", stage_2: "10" },
-  B1_1_11: { plug: "B1_11", stage: "12", blades: "76", stage_2: "11" },
-  B1_1_12: { plug: "B1_12", stage: "13", blades: "76", stage_2: "12" },
-  B1_1_13: { plug: "B1_13", stage: "14", blades: "76", stage_2: "13" },
-  B2_1_1: { plug: "B2_1", position: "1" },
-  B2_1_2: { plug: "B2_2", position: "5" },
-  B2_1_3: { plug: "B2_3", position: "7" },
-  B2_1_4: { plug: "B2_4", position: "9:30" },
-  B2_1_5: { plug: "B2_5", position: "11" },
-  // B2_1_5: { plug: "B2_5", position: "11" },
-  // B2_1_5: { plug: "B2_5", position: "11" },
-  B3_1: { plug: "B3_1", stage: "1", blades: "80" },
-  B3_2: { plug: "B3_2", stage: "2", blades: "74", stage_2: "1" },
-  B4_1: { plug: "B4_1", stage: "1", blades: "118", stage_2: "2" },
-  B4_1_2: { plug: "B4_2", stage: "2", blades: "124", stage_2: "1" },
-  B4_1_3: { plug: "B4_3", stage: "4", blades: "88", stage_2: "3" },
+  B1_1_2_2: { plug: "B1-0", stage: "1", blades: "36", stage_2: "1" },
+  B1_1_1: { plug: "B1-1", stage: "2", blades: "26", stage_2: "1" },
+  B1_1_2: { plug: "B1-2", stage: "3", blades: "42", stage_2: "2" },
+  B1_1_3: { plug: "B1-3", stage: "4", blades: "46", stage_2: "3" },
+  B1_1_4: { plug: "B1-4", stage: "5", blades: "48", stage_2: "4" },
+  B1_1_5: { plug: "B1-5", stage: "6", blades: "54", stage_2: "5" },
+  B1_1_6: { plug: "B1-6", stage: "7", blades: "56", stage_2: "6" },
+  B1_1_7: { plug: "B1-7", stage: "8", blades: "64", stage_2: "7" },
+  B1_1_8: { plug: "B1-8", stage: "9", blades: "66", stage_2: "8" },
+  B1_1_9: { plug: "B1-9", stage: "10", blades: "66", stage_2: "9" },
+  B1_1_10: { plug: "B1_-0", stage: "11", blades: "76", stage_2: "10" },
+  B1_1_11: { plug: "B1-11", stage: "12", blades: "76", stage_2: "11" },
+  B1_1_12: { plug: "B1-12", stage: "13", blades: "76", stage_2: "12" },
+  B1_1_13: { plug: "B1-13", stage: "14", blades: "76", stage_2: "13" },
+  B2_1_1: { plug: "B2-1", position: "1" },
+  B2_1_2: { plug: "B2-2", position: "5" },
+  B2_1_3: { plug: "B2-3", position: "7" },
+  B2_1_4: { plug: "B2-4", position: "9:30" },
+  B2_1_5: { plug: "B2-5", position: "11" },
+  B3_1: { plug: "B3-1", stage: "1", blades: "80" },
+  B3_2: { plug: "B3-2", stage: "2", blades: "74", stage_2: "1" },
+  B4_1: { plug: "B4-1", stage: "1", blades: "118", stage_2: "2" },
+  B4_1_2: { plug: "B4-3", stage: "2", blades: "124", stage_2: "1" },
+  B4_1_3: { plug: "B4-4", stage: "4", blades: "88", stage_2: "3" },
 };
 
 function App() {
@@ -76,7 +76,7 @@ function App() {
             marginBottom:"10px"
           }}
         >
-          Show me {rotation ===true ? '(click to stop)':'(click to start)'}
+          Show me {rotation ===true ? '(click to stop rotation)':'(click to start rotation)'}
         </button>
         <div className="accordion" id="accordionExample">
           <div className="accordion-item">
@@ -89,7 +89,7 @@ function App() {
                 aria-expanded="false"
                 aria-controls="collapseOne"
               >
-                B1 Parts
+                High Pressure Compressor Plugs
               </button>
             </h2>
             <div
@@ -100,6 +100,9 @@ function App() {
             >
               <div className="accordion-body">
                 <ul>
+                  <li onClick={() => setName("B1_1_2_2")}>
+                    <a href="#">B1-0</a>
+                  </li>
                   <li onClick={() => setName("B1_1_1")}>
                     <a href="#">B1-1</a>
                   </li>
@@ -154,7 +157,7 @@ function App() {
                 aria-expanded="false"
                 aria-controls="collapseTwo"
               >
-                B2 Parts
+                Combustion Chamber Plugs
               </button>
             </h2>
             <div
@@ -195,7 +198,7 @@ function App() {
                 aria-expanded="false"
                 aria-controls="collapseThree"
               >
-                B3 parts
+                High Pressure Turbine Plugs
               </button>
             </h2>
             <div
@@ -227,7 +230,7 @@ function App() {
                 aria-expanded="false"
                 aria-controls="collapseFour"
               >
-                B4 parts
+                Low Pressure Turbine Plugs
               </button>
             </h2>
             <div
@@ -242,10 +245,10 @@ function App() {
                     <a href="#">B4-1</a>
                   </li>
                   <li onClick={() => setName("B4_1_2")}>
-                    <a href="#">B4-2</a>
+                    <a href="#">B4-3</a>
                   </li>
                   <li onClick={() => setName("B4_1_3")}>
-                    <a href="#">B4-3</a>
+                    <a href="#">B4-4</a>
                   </li>
                 </ul>
               </div>
@@ -260,10 +263,10 @@ function App() {
         style={{
           zIndex:'1',
           position: "absolute",
-          top: "8%",
-          right: "5%",
           padding: "20px",
           width: "20%",
+          top: "8%",
+          right: "5%",
           height: "fit-content",
           backgroundColor: "green",
           color: "white",
@@ -285,7 +288,7 @@ function App() {
                 <p>plug {data[meshName].plug}</p>
                 <p>Stage {data[meshName].stage}</p>
                 {data[meshName].blades} Blades Leading Edge{" "}
-                {meshName !== "B3_1" &&
+                {meshName !== "B3_1" && meshName!=='B1_1_2_2' &&
                   `/${meshName === "B4_1" ? "HP Turbine" : ""} Stage ${
                     data[meshName].stage_2
                   } Trailing Edge`}
@@ -296,12 +299,13 @@ function App() {
       </div>
 
       {/* <Environment preset="sunset" background /> */}
+      <Suspense fallback={<Spinner/>}>
       <Canvas>
         {/* <PerspectiveCamera makeDefault position={[0, 0, 5]} /> */}
         
         <ambientLight intensity={0.7} />
         <pointLight position={[10, 10, 10]} />
-        <Suspense fallback={null}>
+        
           <Selection>
             <EffectComposer multisampling={8} autoClear={false}>
               <Outline
@@ -313,14 +317,16 @@ function App() {
                 blendFunction={BlendFunction.ALPHA}
                 pulseSpeed={1}
                 kernelSize={KernelSize.VERY_LARGE} 
+                // xRay={true}
+                // blur
               />
             </EffectComposer>
-            <Loader meshName={meshName} boxRef={popUpBox} rotation={rotation}/>
+            <Loader meshName={meshName} boxRef={popUpBox} orbitRotation={rotation}/>
           </Selection>
           <Environment files={'/assets/models/Concrete_Shelter.exr'} background />
-        </Suspense>
-        <OrbitControls enablePan={true} enableRotate={rotation} enableDamping={false}  />
+        <OrbitControls enablePan={false} enableRotate={rotation} enableDamping={false}  />
       </Canvas>
+        </Suspense>
     </>
   );
 }
