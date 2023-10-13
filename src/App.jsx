@@ -43,6 +43,32 @@ const data = {
   B4_1_2: { plug: "B4-3", stage: "2", blades: "124", stage_2: "1" },
   B4_1_3: { plug: "B4-4", stage: "4", blades: "88", stage_2: "3" },
 };
+const data2 = {
+  B1_1_2_2: { text:'(Plug B1-0) Stage1 - 36 Blades Leading Edge'},
+  B1_1_1:   { text:'(Plug B1-1) Stage 2 - 26 Blades Leading Edge / Stage 1 Trailing Edge' },
+  B1_1_2: { text:'(Plug B1- 2) Stage 3 - 42 Blades Leading Edge / Stage 2 Trailing Edge' },
+  B1_1_3: { text:'(Plug B1- 3) Stage 4 - 46 Blades Leading Edge / Stage 3 Trailing Edge' },
+  B1_1_4: { text:'(Plug B1-4) Stage 5 – 48 Blades Leading Edge / Stage 4 Trailing Edge' },
+  B1_1_5: { text:'(Plug B1-5) Stage 6 – 54 Blades Leading Edge / Stage 5 Trailing Edge' },
+  B1_1_6: { text:'(Plug B1-6) Stage 7 – 56 Blades Leading Edge / Stage 6 Trailing Edge' },
+  B1_1_7: { text:'(Plug B1- 7) Stage 8 – 64 Blades Leading Edge / Stage 7 Trailing Edge' },
+  B1_1_8: { text:'(Plug B1-8) Stage 9 – 66 Blades Leading Edge / Stage 8 Trailing Edge' },
+  B1_1_9: { text:'(Plug B1 - 9) Stage 10 - 66 Blades Leading Edge / Stage 9 Trailing Edge' },
+  B1_1_10: { text:'(Plug B1- 10) Stage 11 – 76 Blades Leading Edge / Stage 10 Trailing Edge' },
+  B1_1_11: { text:'(Plug B1-11) Stage 12 – 76 Blades Leading Edge / Stage 11 Trailing Edge' },
+  B1_1_12: { text:'(Plug B1-12) Stage 13 – 76 Blades Leading Edge / Stage 12 Trailing Edge' },
+  B1_1_13: { text:'(Plug B1-13) Stage 14 – 76 Blades Leading Edge / Stage 13 Trailing Edge' },
+  B2_1_1: { text:'(Plug B2-1) - 1 O’clock position.' },
+  B2_1_2: { text:'(Plug B2- 2) - 5 O’clock position' },
+  B2_1_3: { text:'(Plug B2-3) - 7 O’clock Position.' },
+  B2_1_4: { text:'(Plug B2- 4) - 9:30 O’clock Position.' },
+  B2_1_5: { text:'(Plug B2- 5) – 11 O’clock Position.' },
+  B3_1: {text: '(Plug B3-1) Stage 1 – 80 Blades Leading Edge' },
+  B3_2: {text: '(Plug B3-2) Stage 2 – 74 Blades Leading Edge / Stage 1 Trailing Edge' },
+  B4_1: {text: '(Plug B4-1) Stage 1 - 118 Blades Leading Edge / HP Turbine Stage 2 Trailing Edge' },
+  B4_1_2: { text:'(Plug B4- 3) Stage 2 – 124 Blades Leading Edge /  Stage 1 Trailing Edge' },
+  B4_1_3: { text:'(Plug B4- 4) Stage 4 – 88 Blades Leading Edge / Stage 3 Trailing Edge' },
+};
 
 function App() {
   const [meshName, setMeshName] = useState("");
@@ -276,7 +302,7 @@ function App() {
           display: "none",
         }}
       >
-        {meshName !== "" && data[meshName] && meshName.startsWith("B2") ? (
+        {/* {meshName !== "" && data[meshName] && meshName.startsWith("B2") ? (
           <>
             <div>Plug {data[meshName].plug}</div>
             {data[meshName].position} o'clock position
@@ -295,7 +321,13 @@ function App() {
               </>
             )}
           </>
-        )}
+        )} */}
+        {meshName !== "" && data2[meshName] && 
+           <>
+           {data2[meshName].text}
+          
+           </>
+        }
       </div>
 
       {/* <Environment preset="sunset" background /> */}
@@ -303,9 +335,9 @@ function App() {
       <Canvas>
         {/* <PerspectiveCamera makeDefault position={[0, 0, 5]} /> */}
         
+        <OrbitControls enablePan={false} enableRotate={rotation} enableDamping={false} />
         <ambientLight intensity={0.7} />
         <pointLight position={[10, 10, 10]} />
-        
           <Selection>
             <EffectComposer multisampling={8} autoClear={false}>
               <Outline
@@ -321,10 +353,10 @@ function App() {
                 // blur
               />
             </EffectComposer>
-            <Loader meshName={meshName} boxRef={popUpBox} orbitRotation={rotation}/>
+            <Loader meshName={meshName} boxRef={popUpBox} orbitRotation={rotation} />
           </Selection>
           <Environment files={'/assets/models/Concrete_Shelter.exr'} background />
-        <OrbitControls enablePan={false} enableRotate={rotation} enableDamping={false}  />
+        
       </Canvas>
         </Suspense>
     </>

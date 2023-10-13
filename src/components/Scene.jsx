@@ -69,7 +69,7 @@ export const Loader = ({ meshName, boxRef,orbitRotation },props) => {
       // const distance = 1; // Adjust the initial distance as needed for the desired zoom level
       let targetPosition ;
       if(meshName==='B1_1_1' || meshName==='B1_1_2'|| meshName==='B1_1_2_2'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-160, 8, 100));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-158, 8, 100));
       }
       else{
         targetPosition = objectToFocus.position.clone();
@@ -206,7 +206,7 @@ export const Loader = ({ meshName, boxRef,orbitRotation },props) => {
           <primitive  object={gltf.scene.children[0].children[3].children[0].children[2]} />
           <primitive  object={gltf.scene} />
       </Select> */}
-
+      
 <group {...props} dispose={null}>
       <group position={[0.403, -0.225, -0.83]} rotation={[Math.PI / 2, 0, 0]} scale={[0.004, 0.005, 0.005]}>
         <group position={[85.087, -4.453, 86.894]} rotation={[0, 0.071, -Math.PI / 2]} scale={[0.776, 1.043, 0.902]}>
