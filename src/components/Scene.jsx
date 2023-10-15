@@ -22,12 +22,19 @@ export const Loader = ({ meshName, boxRef,orbitRotation },props) => {
          raycaster.setFromCamera(pos, camera);
          return raycaster.intersectObjects(scene.children, true);
        }
-       
+       let initialPosition = null;
+      //  let initialScale = null 
        function onClick(event){
+       // let changePosition;
        if (draggable.current != null) {
         //if(found.length){}
         console.log(`dropping draggable`)
-        draggable.current = null 
+        if (initialPosition !== null) {
+          draggable.current.position.y = initialPosition.y;
+          initialPosition = null;
+        }
+        
+        draggable.current = null;
         return;
       }
       
@@ -41,25 +48,37 @@ export const Loader = ({ meshName, boxRef,orbitRotation },props) => {
       for (let i = 0; i < found.length; i++) {
         console.log(found[i].object)
       }
+      
       console.log(found.length)
       if (found.length > 0) {
           draggable.current = found[0].object
           console.log(`found draggable`)
-          const outlineMaterial = new THREE.MeshBasicMaterial({
-            color: 0x00ff00, // Outline color
-            side: THREE.BackSide, // Render on the back side of the mesh
-          });
-          // Create a new outline for the selected object
+          console.log('draggable',draggable.current)
+          // initialPosition = draggable.current.position.clone();
+          // changePosition = initialPosition.add(new THREE.Vector3(0, 8, 0))
          
-          // var outlineMesh = new THREE.Mesh(draggable.current.geometry.clone(), outlineMaterial);
+            initialPosition = draggable.current.position.clone();
+            // Change the position of the mesh when picked up
+            draggable.current.position.y += 20;
+            console.log(initialPosition)
+            //console.log(changePosition)
+          
+          // if(draggable.current.userData.name.startsWith('B')){
+          //   initialPosition = draggable.current.position.clone();
+          //   // Change the position of the mesh when picked up
+          //   draggable.current.position.y += 20;
+          //   console.log(initialPosition)
+          //   console.log(changePosition)
+          // }
+          
           // outlineMesh.position.copy(draggable.current.position);
           // outlineMesh.scale.set(10.05, 10.05, 10.05); // Slightly larger scale for the outline
           // scene.add(outlineMesh);
     
           // Update the color of the selected object
-          const newColor = new THREE.Color(0, 0.6, 0.7);
-          draggable.current.material.color.copy(newColor);
-          focusCameraOnObject(draggable.current)
+          // const newColor = new THREE.Color(0, 0.6, 0.7);
+          // draggable.current.material.color.copy(newColor);
+          // focusCameraOnObject(draggable.current)
       }
       }
 
@@ -158,7 +177,7 @@ export const Loader = ({ meshName, boxRef,orbitRotation },props) => {
 
 
   useEffect(() => {
-    //window.addEventListener('click',onClick)
+
 
     if (meshName !== "") {
       var childrens;
@@ -194,8 +213,16 @@ export const Loader = ({ meshName, boxRef,orbitRotation },props) => {
         console.log("Mesh not found");
       }
     }
+
   }, [meshName,orbitRotation]);
 
+useEffect(() => {
+  window.addEventListener('click',onClick)
+
+  return () => {
+    window.removeEventListener('click', onClick);
+  } 
+}, [onClick])
 
   return (
     <>
@@ -255,7 +282,7 @@ export const Loader = ({ meshName, boxRef,orbitRotation },props) => {
               <mesh geometry={nodes.B3_2.geometry} material={materials['03 - Default']} position={[68.167, -1.464, 58.214]} scale={[2.5, 2.155, 2.155]} />
               </Select>
               <Select enabled={meshName ==='B3_1'?true:false}>
-              <mesh geometry={nodes.B3_1.geometry} material={materials['03 - Default']} position={[96.946, 28.099, 0.842]} scale={[2.5, 2.155, 2.155]} />
+              <mesh userData={{name:'B3'}} geometry={nodes.B3_1.geometry} material={materials['03 - Default']} position={[96.946, 28.099, 0.842]} scale={[2.5, 2.155, 2.155]} />
               </Select>
             </group>
             <group position={[-386.675, -16.466, 73.459]}>
