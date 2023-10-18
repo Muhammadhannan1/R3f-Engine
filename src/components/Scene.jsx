@@ -31,6 +31,7 @@ export const Loader = ({ meshName, boxRef,orbitRotation },props) => {
         console.log(`dropping draggable`)
         if (initialPosition !== null) {
           draggable.current.position.y = initialPosition.y;
+          draggable.current.position.z = initialPosition.z;
           initialPosition = null;
         }
         
@@ -51,34 +52,41 @@ export const Loader = ({ meshName, boxRef,orbitRotation },props) => {
       
       console.log(found.length)
       if (found.length > 0) {
-          draggable.current = found[0].object
-          console.log(`found draggable`)
-          console.log('draggable',draggable.current)
+        draggable.current = found[0].object
+        console.log(`found draggable`)
+        console.log('draggable',draggable.current)
           // initialPosition = draggable.current.position.clone();
           // changePosition = initialPosition.add(new THREE.Vector3(0, 8, 0))
          
-            initialPosition = draggable.current.position.clone();
-            // Change the position of the mesh when picked up
-            draggable.current.position.y += 20;
-            console.log(initialPosition)
-            //console.log(changePosition)
+            // initialPosition = draggable.current.position.clone();
+            // draggable.current.position.y += 20;
+            // console.log(initialPosition)
+           
           
-          // if(draggable.current.userData.name.startsWith('B')){
-          //   initialPosition = draggable.current.position.clone();
-          //   // Change the position of the mesh when picked up
-          //   draggable.current.position.y += 20;
-          //   console.log(initialPosition)
-          //   console.log(changePosition)
-          // }
-          
-          // outlineMesh.position.copy(draggable.current.position);
-          // outlineMesh.scale.set(10.05, 10.05, 10.05); // Slightly larger scale for the outline
-          // scene.add(outlineMesh);
-    
-          // Update the color of the selected object
-          // const newColor = new THREE.Color(0, 0.6, 0.7);
-          // draggable.current.material.color.copy(newColor);
-          // focusCameraOnObject(draggable.current)
+          if(draggable.current.userData.name && draggable.current.userData.name.startsWith('B')){
+
+            initialPosition = draggable.current.position.clone(); 
+            // Change the position of the mesh when picked up 
+            if(draggable.current.userData.name ==='B1_1_10'|| draggable.current.userData.name ==='B1_1_11'  || draggable.current.userData.name ==='B2_1_4' || draggable.current.userData.name ==='B2_1_5' ){
+              draggable.current.position.y += -50;
+            }
+            else if (draggable.current.userData.name ==='B2_1_3' || draggable.current.userData.name ==='B2_1_2') {
+              draggable.current.position.z += 50;
+            }
+            else if(draggable.current.userData.name ==='B2_1_1'){
+              draggable.current.position.z -= 50;
+            }
+            else{
+              draggable.current.position.y += 50;
+            }
+            // console.log(initialPosition)
+            // console.log(changePosition)
+          }
+          else{
+            console.log('clicked',draggable.current);
+            draggable.current = null;
+            return null;
+          }
       }
       }
 
@@ -87,17 +95,78 @@ export const Loader = ({ meshName, boxRef,orbitRotation },props) => {
     if (objectToFocus) {
       // const distance = 1; // Adjust the initial distance as needed for the desired zoom level
       let targetPosition ;
-      if(meshName==='B1_1_1' || meshName==='B1_1_2'|| meshName==='B1_1_2_2'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-158, 8, 100));
+      if(meshName==='B1_1_2_2'){
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-98, -10, 40));
+      }
+      else if(meshName==='B1_1_1' ){
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-138, -10, 40));
+      }
+      else if(meshName==='B1_1_2'){
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-168, 0, 70));
+      }
+      else if(meshName==='B1_1_3'){
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-68, 1, 30));
+      }
+      else if(meshName==='B1_1_4'){
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-60, -22, 10));
+      }
+      else if( meshName==='B1_1_5'){
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-48, -16, 10));
+      }
+      else if( meshName==='B1_1_6'){
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-30, -15, 10));
+      }
+      else if( meshName==='B1_1_7'){
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-10, 130, 50));
+      }
+      else if( meshName==='B1_1_8'){
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(10, 20, 40));
+      }
+      else if( meshName==='B1_1_9'){
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(30, 30, 50));
+      }
+      else if(meshName==='B1_1_10' || meshName==='B1_1_11'){
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(40, 150, -20));
+      }
+      else if(meshName==='B1_1_12' || meshName==='B1_1_13'){
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(100, -16, 0));
+      }
+      else if (meshName==='B2_1_1'){
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-30, -70, 100));
+      }
+      else if (meshName==='B2_1_2'){
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-10, -60, -30));
+      }
+      else if (meshName==='B2_1_3'){
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-30, 10, -50));
+      }
+      else if (meshName==='B2_1_4'){
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-30, 90, 0));
+        // targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-70, 90, 0));
+      }
+      else if (meshName==='B2_1_5'){
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-30, 70, 50));
+      }
+      else if(meshName==='B3_1'){
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-80, -10, 40));
+      }
+      else if( meshName==='B3_2'){
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-60, 3, -10));
+      }
+      else if(meshName==='B4_1' ){
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(10, -20, 40));
+      }
+      else if(meshName==='B4_1_2' ){
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(30, -40, 45));
+      }
+      else if(meshName==='B4_1_3'){
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(70, -60, 60));
       }
       else{
         targetPosition = objectToFocus.position.clone();
       }
       const duration = 1200; // Animation duration in milliseconds
       const startTime = performance.now(); // Record the start time
-      // Function to update camera position and orientation
-      const initialCameraPosition = camera.position.clone();
-      const initialFov = camera.fov;
       const updateCamera = () => {
         const currentTime = performance.now();
         const elapsed = currentTime - startTime;
@@ -270,80 +339,80 @@ useEffect(() => {
           <group position={[51.023, 0, -39.692]}>
             <group position={[-553.087, 72.37, 74.138]}>
             <Select enabled={meshName ==='B4_1_3'?true:false}>
-              <mesh geometry={nodes.B4_1_3.geometry} material={materials['03 - Default']} position={[-57.584, 61.608, -34.16]} scale={[2.5, 2.155, 2.155]} />
+              <mesh userData={{name:'B4_1_3'}} geometry={nodes.B4_1_3.geometry} material={materials['03 - Default']} position={[-57.584, 61.608, -34.16]} scale={[2.5, 2.155, 2.155]} />
               </Select>
               <Select enabled={meshName ==='B4_1_2'?true:false}>
-              <mesh geometry={nodes.B4_1_2.geometry} material={materials['03 - Default']} position={[-9.968, 44.638, -15.349]} scale={[2.5, 2.155, 2.155]} />
+              <mesh userData={{name:'B4_1_2'}} geometry={nodes.B4_1_2.geometry} material={materials['03 - Default']} position={[-9.968, 44.638, -15.349]} scale={[2.5, 2.155, 2.155]} />
               </Select>
               <Select enabled={meshName ==='B4_1'?true:false}>
-              <mesh geometry={nodes.B4_1.geometry} material={materials['03 - Default']} position={[19.168, 35.961, -28.029]} scale={[2.5, 2.155, 2.155]} />
+              <mesh userData={{name:'B4_1'}} geometry={nodes.B4_1.geometry} material={materials['03 - Default']} position={[19.168, 35.961, -28.029]} scale={[2.5, 2.155, 2.155]} />
               </Select>
               <Select enabled={meshName ==='B3_2'?true:false}>
-              <mesh geometry={nodes.B3_2.geometry} material={materials['03 - Default']} position={[68.167, -1.464, 58.214]} scale={[2.5, 2.155, 2.155]} />
+              <mesh userData={{name:'B3_2'}} geometry={nodes.B3_2.geometry} material={materials['03 - Default']} position={[68.167, -1.464, 58.214]} scale={[2.5, 2.155, 2.155]} />
               </Select>
               <Select enabled={meshName ==='B3_1'?true:false}>
-              <mesh userData={{name:'B3'}} geometry={nodes.B3_1.geometry} material={materials['03 - Default']} position={[96.946, 28.099, 0.842]} scale={[2.5, 2.155, 2.155]} />
+              <mesh userData={{name:'B3_1'}} geometry={nodes.B3_1.geometry} material={materials['03 - Default']} position={[96.946, 28.099, 0.842]} scale={[2.5, 2.155, 2.155]} />
               </Select>
             </group>
             <group position={[-386.675, -16.466, 73.459]}>
             <Select enabled={meshName ==='B2_1_5'?true:false}>
-              <mesh geometry={nodes.B2_1_5.geometry} material={materials['03 - Default']} position={[0.473, -48.59, -73.505]} scale={[2.5, 2.155, 2.155]} />
+              <mesh userData={{name:'B2_1_5'}} geometry={nodes.B2_1_5.geometry} material={materials['03 - Default']} position={[0.473, -48.59, -73.505]} scale={[2.5, 2.155, 2.155]} />
               </Select>
               <Select enabled={meshName ==='B2_1_4'?true:false}>
-              <mesh geometry={nodes.B2_1_4.geometry} material={materials['03 - Default']} position={[-0.569, -69.489, -28.386]} scale={[2.5, 2.155, 2.155]} />
+              <mesh userData={{name:'B2_1_4'}} geometry={nodes.B2_1_4.geometry} material={materials['03 - Default']} position={[-0.569, -69.489, -28.386]} scale={[2.5, 2.155, 2.155]} />
               </Select>
               <Select enabled={meshName ==='B2_1_3'?true:false}>
-              <mesh geometry={nodes.B2_1_3.geometry} material={materials['03 - Default']} position={[-0.064, -25.561, 64.765]} scale={[2.5, 2.155, 2.155]} />
+              <mesh userData={{name:'B2_1_3'}} geometry={nodes.B2_1_3.geometry} material={materials['03 - Default']} position={[-0.064, -25.561, 64.765]} scale={[2.5, 2.155, 2.155]} />
               </Select>
               <Select enabled={meshName ==='B2_1_2'?true:false}>
-              <mesh geometry={nodes.B2_1_2.geometry} material={materials['03 - Default']} position={[0.391, 56.434, 69.43]} scale={[2.5, 2.155, 2.155]} />
+              <mesh userData={{name:'B2_1_2'}} geometry={nodes.B2_1_2.geometry} material={materials['03 - Default']} position={[0.391, 56.434, 69.43]} scale={[2.5, 2.155, 2.155]} />
               </Select>
               <Select enabled={meshName ==='B2_1_1'?true:false}>
-              <mesh geometry={nodes.B2_1_1.geometry} material={materials['03 - Default']} position={[-2.552, 79.333, -87.4]} scale={[2.5, 2.155, 2.155]} />
+              <mesh userData={{name:'B2_1_1'}} geometry={nodes.B2_1_1.geometry} material={materials['03 - Default']} position={[-2.552, 79.333, -87.4]} scale={[2.5, 2.155, 2.155]} />
               </Select>
             </group>
             <group position={[-156.612, 46.765, 59.343]}>
             <Select enabled={meshName ==='B1_1_2'?true:false}>
-              <mesh geometry={nodes.B1_1_2.geometry} material={materials['03 - Default']} position={[155.978, 27.686, -32.833]} scale={[2.5, 2.155, 2.155]} />
+              <mesh userData={{name:'B1_1_2'}} geometry={nodes.B1_1_2.geometry} material={materials['03 - Default']} position={[155.978, 27.686, -32.833]} scale={[2.5, 2.155, 2.155]} />
               </Select>
               <Select enabled={meshName ==='B1_1_1'?true:false}>
-              <mesh geometry={nodes.B1_1_1.geometry} material={materials['03 - Default']} position={[130.699, 35.159, -0.158]} scale={[2.5, 2.155, 2.155]} />
+              <mesh userData={{name:'B1_1_1'}}  geometry={nodes.B1_1_1.geometry} material={materials['03 - Default']} position={[130.699, 35.159, -0.158]} scale={[2.5, 2.155, 2.155]} />
               </Select>
               <Select enabled={meshName ==='B1_1_2_2'?true:false}>
-              <mesh geometry={nodes.B1_1_2_2.geometry} material={materials['03 - Default']} position={[98.502, 34.747, 0.9]} scale={[2.5, 2.155, 2.155]} />
+              <mesh userData={{name:'B1_1_2_2'}} geometry={nodes.B1_1_2_2.geometry} material={materials['03 - Default']} position={[98.502, 34.747, 0.9]} scale={[2.5, 2.155, 2.155]} />
               </Select>
               <Select enabled={meshName ==='B1_1_3'?true:false}>
-              <mesh geometry={nodes.B1_1_3.geometry} material={materials['03 - Default']} position={[78.767, 34.515, 1.849]} scale={[2.5, 2.155, 2.155]} />
+              <mesh userData={{name:'B1_1_3'}} geometry={nodes.B1_1_3.geometry} material={materials['03 - Default']} position={[78.767, 34.515, 1.849]} scale={[2.5, 2.155, 2.155]} />
               </Select>
               <Select enabled={meshName ==='B1_1_4'?true:false}>
-              <mesh geometry={nodes.B1_1_4.geometry} material={materials['03 - Default']} position={[57.703, 37.577, 2.516]} scale={[2.5, 2.155, 2.155]} />
+              <mesh userData={{name:'B1_1_4'}} geometry={nodes.B1_1_4.geometry} material={materials['03 - Default']} position={[57.703, 37.577, 2.516]} scale={[2.5, 2.155, 2.155]} />
               </Select>
               <Select enabled={meshName ==='B1_1_5'?true:false}>
-              <mesh geometry={nodes.B1_1_5.geometry} material={materials['03 - Default']} position={[38.116, 34.127, 5.859]} scale={[2.5, 2.155, 2.155]} />
+              <mesh userData={{name:'B1_1_5'}} geometry={nodes.B1_1_5.geometry} material={materials['03 - Default']} position={[38.116, 34.127, 5.859]} scale={[2.5, 2.155, 2.155]} />
               </Select>
               <Select enabled={meshName ==='B1_1_6'?true:false}>
-              <mesh geometry={nodes.B1_1_6.geometry} material={materials['03 - Default']} position={[21.088, 36.394, 9.209]} scale={[2.5, 2.155, 2.155]} />
+              <mesh userData={{name:'B1_1_6'}} geometry={nodes.B1_1_6.geometry} material={materials['03 - Default']} position={[21.088, 36.394, 9.209]} scale={[2.5, 2.155, 2.155]} />
               </Select>
               <Select enabled={meshName ==='B1_1_7'?true:false}>
-              <mesh geometry={nodes.B1_1_7.geometry} material={materials['03 - Default']} position={[1.423, -90.406, -63.076]} scale={[2.5, 2.155, 2.155]} />
+              <mesh userData={{name:'B1_1_7'}} geometry={nodes.B1_1_7.geometry} material={materials['03 - Default']} position={[1.423, -90.406, -63.076]} scale={[2.5, 2.155, 2.155]} />
               </Select>
               <Select enabled={meshName ==='B1_1_8'?true:false}>
-              <mesh geometry={nodes.B1_1_8.geometry} material={materials['03 - Default']} position={[-23.602, 4.304, -61.924]} scale={[2.5, 2.155, 2.155]} />
+              <mesh userData={{name:'B1_1_8'}} geometry={nodes.B1_1_8.geometry} material={materials['03 - Default']} position={[-23.602, 4.304, -61.924]} scale={[2.5, 2.155, 2.155]} />
               </Select>
               <Select enabled={meshName ==='B1_1_9'?true:false}>
-              <mesh geometry={nodes.B1_1_9.geometry} material={materials['03 - Default']} position={[-41.748, 5.741, -64.331]} scale={[2.5, 2.155, 2.155]} />
+              <mesh userData={{name:'B1_1_9'}} geometry={nodes.B1_1_9.geometry} material={materials['03 - Default']} position={[-41.748, 5.741, -64.331]} scale={[2.5, 2.155, 2.155]} />
               </Select>
               <Select enabled={meshName ==='B1_1_10'?true:false}>
-              <mesh geometry={nodes.B1_1_10.geometry} material={materials['03 - Default']} position={[-58.937, -118.223, -27.938]} scale={[2.5, 2.155, 2.155]} />
+              <mesh userData={{name:'B1_1_10'}} geometry={nodes.B1_1_10.geometry} material={materials['03 - Default']} position={[-58.937, -118.223, -27.938]} scale={[2.5, 2.155, 2.155]} />
               </Select>
               <Select enabled={meshName ==='B1_1_11'?true:false}>
-              <mesh geometry={nodes.B1_1_11.geometry} material={materials['03 - Default']} position={[-77.933, -106.269, -40.567]} scale={[2.5, 2.155, 2.155]} />
+              <mesh userData={{name:'B1_1_11'}} geometry={nodes.B1_1_11.geometry} material={materials['03 - Default']} position={[-77.933, -106.269, -40.567]} scale={[2.5, 2.155, 2.155]} />
               </Select>
               <Select enabled={meshName ==='B1_1_12'?true:false}>
-              <mesh geometry={nodes.B1_1_12.geometry} material={materials['03 - Default']} position={[-98.951, 28.967, 23.467]} scale={[2.5, 2.155, 2.155]} />
+              <mesh userData={{name:'B1_1_12'}} geometry={nodes.B1_1_12.geometry} material={materials['03 - Default']} position={[-98.951, 28.967, 23.467]} scale={[2.5, 2.155, 2.155]} />
               </Select>
               <Select enabled={meshName ==='B1_1_13'?true:false}>
-              <mesh geometry={nodes.B1_1_13.geometry} material={materials['03 - Default']} position={[-117.529, 28.829, 23.924]} scale={[2.5, 2.155, 2.155]} />
+              <mesh userData={{name:'B1_1_13'}} geometry={nodes.B1_1_13.geometry} material={materials['03 - Default']} position={[-117.529, 28.829, 23.924]} scale={[2.5, 2.155, 2.155]} />
               </Select>
             </group>
           </group>
