@@ -84,10 +84,10 @@ function App() {
         style={{
           position: "absolute",
           zIndex: "1",
-          padding: "1rem",
-          top: "3%",
-          backgroundColor: "black",
-          width: "15%",
+          // padding: "5px 1rem",
+          backgroundColor: "rgb(28 23 22)",
+          // width: "20vw",
+          // height:"10vh"
         }}
       >
         <button
@@ -96,7 +96,8 @@ function App() {
             width: "100%",
             padding: "0.5rem",
             borderRadius: "10px",
-            backgroundColor: "burlywood",
+            backgroundColor: "rgb(28 23 22)",
+            color:"rgb(221, 139, 59)",
             fontSize: "19px",
             fontWeight: "bold",
             marginBottom:"10px"
@@ -104,10 +105,11 @@ function App() {
         >
           Show me {rotation ===true ? '(click to stop rotation)':'(click to start rotation)'}
         </button>
-        <div className="accordion" id="accordionExample">
-          <div className="accordion-item">
+        <div style={{backgroundColor:'rgb(28 23 22)'}} className="accordion" id="accordionExample">
+          <div style={{backgroundColor:'rgb(28 23 22)',color:"rgb(221, 139, 59)"}} className="accordion-item">
             <h2 className="accordion-header" id="headingOne">
               <button
+              style={{backgroundColor:'rgb(28 23 22)',color:"rgb(221, 139, 59)"}}
                 className="accordion-button"
                 type="button"
                 data-bs-toggle="collapse"
@@ -173,9 +175,10 @@ function App() {
             </div>
           </div>
 
-          <div className="accordion-item">
+          <div style={{backgroundColor:'rgb(28 23 22)',color:"rgb(221, 139, 59)"}} className="accordion-item">
             <h2 className="accordion-header" id="headingTwo">
               <button
+              style={{backgroundColor:'rgb(28 23 22)',color:"rgb(221, 139, 59)"}}
                 className="accordion-button collapsed"
                 type="button"
                 data-bs-toggle="collapse"
@@ -214,9 +217,10 @@ function App() {
             </div>
           </div>
 
-          <div className="accordion-item">
+          <div style={{backgroundColor:'rgb(28 23 22)',color:"rgb(221, 139, 59)"}} className="accordion-item">
             <h2 className="accordion-header" id="headingThree">
               <button
+              style={{backgroundColor:'rgb(28 23 22)',color:"rgb(221, 139, 59)"}}
                 className="accordion-button collapsed"
                 type="button"
                 data-bs-toggle="collapse"
@@ -246,9 +250,10 @@ function App() {
             </div>
           </div>
 
-          <div className="accordion-item">
+          <div style={{backgroundColor:'rgb(28 23 22)',color:"rgb(221, 139, 59)"}} className="accordion-item">
             <h2 className="accordion-header" id="headingFour">
               <button
+              style={{backgroundColor:'rgb(28 23 22)',color:"rgb(221, 139, 59)"}}
                 className="accordion-button collapsed"
                 type="button"
                 data-bs-toggle="collapse"
@@ -294,8 +299,8 @@ function App() {
           top: "8%",
           right: "5%",
           height: "fit-content",
-          backgroundColor: "green",
-          color: "white",
+          backgroundColor:'rgb(28 23 22)',
+          color:"rgb(221, 139, 59)",
           borderRadius: "15px",
           fontWeight: "bold",
           fontSize: "20px",
@@ -335,7 +340,7 @@ function App() {
       <Canvas>
         {/* <PerspectiveCamera makeDefault position={[0, 0, 5]} /> */}
         
-        <OrbitControls enablePan={false} enableRotate={rotation} enableDamping={false} />
+        <OrbitControls enableRotate={rotation} enableDamping={false} />
         <ambientLight intensity={0.7} />
         <pointLight position={[10, 10, 10]} />
           <Selection>
@@ -355,7 +360,8 @@ function App() {
             </EffectComposer>
             <Loader meshName={meshName} boxRef={popUpBox} orbitRotation={rotation} />
           </Selection>
-          <Environment files={'/assets/models/Concrete_Shelter.exr'} background />
+          <Environment files={'/assets/models/Concrete_Shelter.exr'} background  />
+          {/* <Environment preset="" background  /> */}
         
       </Canvas>
         </Suspense>

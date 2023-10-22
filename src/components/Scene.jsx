@@ -8,13 +8,13 @@ import { Select} from '@react-three/postprocessing'
 import { useGLTF } from '@react-three/drei'
 
 export const Loader = ({ meshName, boxRef,orbitRotation },props) => {
-  const gltf = useLoader(GLTFLoader, "/assets/models/Engine.gltf");
+  const gltf = useLoader(GLTFLoader, "src/assets/models/Engine.gltf");
   const [mesh, setMesh] = useState(null);
   const [selectedMeshName, setSelectedMeshName] = useState(null);
   const { camera,scene,raycaster } = useThree();
   const selectedObjectRef = useRef(null);
   const ref = useRef(null);
-  const { nodes, materials } = useGLTF('/assets/models/Engine.gltf')
+  const { nodes, materials } = useGLTF('src/assets/models/Engine.gltf')
  
   const clickMouse = new THREE.Vector2();  // create once
   const draggable = useRef(null);
@@ -190,63 +190,14 @@ export const Loader = ({ meshName, boxRef,orbitRotation },props) => {
   };
 
 
-
-  // const focusCameraOnObject = (objectToFocus) => {
-  //   if (objectToFocus) {
-  //     const backwardDistance = 70; // Adjust the distance as needed for the desired zoom level
-  
-  //     // Calculate the target position to focus on the backside of the object
-  //     const targetPosition = new THREE.Vector3();
-  //     objectToFocus.getWorldPosition(targetPosition);
-  //     const backwardVector = objectToFocus.getWorldDirection(new THREE.Vector3()).multiplyScalar(-backwardDistance);
-  //     targetPosition.add(backwardVector);
-  
-  //     const duration = 1200; // Animation duration in milliseconds
-  //     const startTime = performance.now(); // Record the start time
-  
-
-  
-  //     // Function to update camera position and orientation
-  //     const updateCamera = () => {
-  //       const currentTime = performance.now();
-  //       const elapsed = currentTime - startTime;
-  //       const progress = Math.min(elapsed / duration, 1); // Ensure progress is between 0 and 1
-  
-  //       // Interpolate camera position
-  //       // camera.position.lerp(backwardVector, progress);
-  //       camera.position.lerp(targetPosition, progress);
-  
-  //       // Update camera orientation to look at the object
-  //       camera.lookAt(objectToFocus.position);
-  
-  //       // Interpolate FOV (optional)
-  //       //camera.fov = initialFov + (4 - initialFov) * progress;
-  //       camera.fov = 4;
-  //       // If the animation is not finished, request the next frame
-  //       if (progress < 1) {
-  //         requestAnimationFrame(updateCamera);
-  //       }
-  //     };
-  
-  //     // Start the animation
-  //     updateCamera();
-  //   }
-  // };
-
   const useFullChildrens = gltf.scene.children[0].children[3].children[0].children;
-  // console.log(gltf.scene.children[0].children[3].children[0].children[2])
-  // console.log(gltf.scene.children[0].children[3].children[0])
-  //console.log(useFullChildrens);
-  // console.log(gltf)
-// console.log(gltf.scene.children[0].children[3].children[0])
-// console.log(gltf.scene.children[0].children[3].children[0].name)
+
   //console.log(gltf.scene.children[0].children[3].children[0].children)
 
 
 
 
   useEffect(() => {
-
 
     if (meshName !== "") {
       var childrens;
@@ -283,7 +234,7 @@ export const Loader = ({ meshName, boxRef,orbitRotation },props) => {
       }
     }
 
-  }, [meshName,orbitRotation]);
+  }, [meshName]);
 
 useEffect(() => {
   window.addEventListener('click',onClick)
@@ -293,14 +244,19 @@ useEffect(() => {
   } 
 }, [onClick])
 
+// useEffect(() => {
+//   if(orbitRotation === true){
+//     camera.fov = 30
+//   }
+
+// }, [orbitRotation])
+
+
   return (
     <>
-        <PerspectiveCamera makeDefault position={[0, 0, 10]} />
+        <PerspectiveCamera makeDefault position={[0, 0, 3]} />
       {/* <Select enabled={false}>
-          <primitive  object={gltf.scene.children[0].children[3].children[0].children[0]} />
-          <primitive  object={gltf.scene.children[0].children[3].children[0].children[1]} />
-          <primitive  object={gltf.scene.children[0].children[3].children[0].children[2]} />
-          <primitive  object={gltf.scene} />
+          <primitive  object={gltf.scene}  />
       </Select> */}
       
 <group {...props} dispose={null}>
@@ -310,7 +266,7 @@ useEffect(() => {
           <mesh geometry={nodes.Tubes.geometry} material={materials['07 - Default']} position={[66.348, -156.709, 34.764]} rotation={[0.083, 0, Math.PI / 2]} scale={[2.683, 2.778, 2.404]} />
           <group position={[-37.636, -196.176, -44.021]} rotation={[0.083, 0, Math.PI / 2]} scale={[2.683, 2.778, 2.404]}>
             <mesh geometry={nodes.Cylinder_1.geometry} material={materials['07 - Default']} />
-            {/* <mesh geometry={nodes.Cylinder_4.geometry} material={materials['Matt Chrome3']} /> */}
+             {/* <mesh geometry={nodes.Cylinder_4.geometry} material={materials['Matt Chrome3']} />  */}
           </group>
           <mesh geometry={nodes.Cloner.geometry} material={materials['Matt Chrome']} position={[100.672, -251.55, -8.423]} rotation={[0.083, 0, Math.PI / 2]} scale={[2.683, 2.778, 2.404]} />
           <mesh geometry={nodes['8'].geometry} material={materials['Matt Chrome3']} position={[36.561, -193.577, 6.066]} rotation={[0.083, 0, Math.PI / 2]} scale={[2.683, 2.778, 2.404]} />
@@ -460,10 +416,10 @@ useEffect(() => {
           <mesh geometry={nodes.Boole_1.geometry} material={materials['07 - Default']} position={[37.049, 0, 0]} scale={[2.5, 2.155, 2.155]} />
           <mesh geometry={nodes['4_3'].geometry} material={materials['07 - Default']} position={[-70.337, 0, 0]} scale={[2.5, 2.155, 2.155]} />
           <mesh geometry={nodes.Wing_3.geometry} material={materials['07 - Default']} position={[32.461, 0, 0]} scale={[2.5, 2.155, 2.155]} />
-          <mesh geometry={nodes.Wing_1.geometry} material={materials['07 - Default']} position={[108.047, 0, 0]} scale={[2.385, 2.056, 2.056]} />
+          <mesh geometry={nodes.Wing_1.geometry} material={materials['01 - Default']} position={[108.047, 0, 0]} scale={[2.385, 2.056, 2.056]} />
           <group position={[155.857, -0.107, -0.122]} scale={[2.5, 2.155, 2.155]}>
-            <mesh geometry={nodes.Null_3_1.geometry} material={materials['07 - Default']} />
-            <mesh geometry={nodes.Null_3_2.geometry} material={materials['07 - Default3']} />
+            <mesh geometry={nodes.Null_3_1.geometry} material={materials['01 - Default']} />
+            <mesh geometry={nodes.Null_3_2.geometry} material={materials['01 - Default3']} />
           </group>
         </group>
       </group>
