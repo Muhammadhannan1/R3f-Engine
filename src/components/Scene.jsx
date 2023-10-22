@@ -8,13 +8,13 @@ import { Select} from '@react-three/postprocessing'
 import { useGLTF } from '@react-three/drei'
 
 export const Loader = ({ meshName, boxRef,orbitRotation },props) => {
-  const gltf = useLoader(GLTFLoader, "src/assets/models/Engine.gltf");
+  const gltf = useLoader(GLTFLoader, "/assets/models/Engine.gltf");
   const [mesh, setMesh] = useState(null);
   const [selectedMeshName, setSelectedMeshName] = useState(null);
   const { camera,scene,raycaster } = useThree();
   const selectedObjectRef = useRef(null);
   const ref = useRef(null);
-  const { nodes, materials } = useGLTF('src/assets/models/Engine.gltf')
+  const { nodes, materials } = useGLTF('/assets/models/Engine.gltf')
  
   const clickMouse = new THREE.Vector2();  // create once
   const draggable = useRef(null);
