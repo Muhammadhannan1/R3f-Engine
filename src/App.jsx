@@ -44,9 +44,9 @@ const data = {
   B4_1_3: { plug: "B4-4", stage: "4", blades: "88", stage_2: "3" },
 };
 const data2 = {
-  B1_1_2_2: { text:'(Plug B1-0) Stage1 - 36 Blades Leading Edge'},
+  B1_1_2: { text:'(Plug B1-0) Stage1 - 36 Blades Leading Edge'},
   B1_1_1:   { text:'(Plug B1-1) Stage 2 - 26 Blades Leading Edge / Stage 1 Trailing Edge' },
-  B1_1_2: { text:'(Plug B1- 2) Stage 3 - 42 Blades Leading Edge / Stage 2 Trailing Edge' },
+  B1_1_2_2: { text:'(Plug B1- 2) Stage 3 - 42 Blades Leading Edge / Stage 2 Trailing Edge' },
   B1_1_3: { text:'(Plug B1- 3) Stage 4 - 46 Blades Leading Edge / Stage 3 Trailing Edge' },
   B1_1_4: { text:'(Plug B1-4) Stage 5 – 48 Blades Leading Edge / Stage 4 Trailing Edge' },
   B1_1_5: { text:'(Plug B1-5) Stage 6 – 54 Blades Leading Edge / Stage 5 Trailing Edge' },
@@ -73,6 +73,7 @@ const data2 = {
 function App() {
   const [meshName, setMeshName] = useState("");
   const [rotation, setRotaion] = useState(false);
+  const [plugDetails, setPlugDetails] = useState(false)
   const setName = (name) => {
     setMeshName(name);
   };
@@ -80,6 +81,7 @@ function App() {
 
   return (
     <>
+    <Suspense fallback={<Spinner/>}>
       <div
         style={{
           position: "absolute",
@@ -98,13 +100,29 @@ function App() {
             borderRadius: "10px",
             backgroundColor: "rgb(28 23 22)",
             color:"rgb(221, 139, 59)",
-            fontSize: "19px",
+            // fontSize: "19px",
             fontWeight: "bold",
             marginBottom:"10px"
           }}
         >
           Show me {rotation ===true ? '(click to stop rotation)':'(click to start rotation)'}
         </button>
+        <button
+        onClick={() => setPlugDetails(!plugDetails)}
+          style={{
+            width: "100%",
+            padding: "0.5rem",
+            borderRadius: "10px",
+            backgroundColor: "rgb(28 23 22)",
+            color:"rgb(221, 139, 59)",
+            // fontSize: "19px",
+            fontWeight: "bold",
+            marginBottom:"10px"
+          }}
+        >
+          Plugs in details {`(${plugDetails===true ? 'active' : 'inactive'})`}
+        </button>
+        { plugDetails===true &&
         <div style={{backgroundColor:'rgb(28 23 22)'}} className="accordion" id="accordionExample">
           <div style={{backgroundColor:'rgb(28 23 22)',color:"rgb(221, 139, 59)"}} className="accordion-item">
             <h2 className="accordion-header" id="headingOne">
@@ -128,13 +146,13 @@ function App() {
             >
               <div className="accordion-body">
                 <ul>
-                  <li onClick={() => setName("B1_1_2_2")}>
+                  <li onClick={() => setName("B1_1_2")}>
                     <a href="#">B1-0</a>
                   </li>
                   <li onClick={() => setName("B1_1_1")}>
                     <a href="#">B1-1</a>
                   </li>
-                  <li onClick={() => setName("B1_1_2")}>
+                  <li onClick={() => setName("B1_1_2_2")}>
                     <a href="#">B1-2</a>
                   </li>
                   <li onClick={() => setName("B1_1_3")}>
@@ -286,6 +304,7 @@ function App() {
             </div>
           </div>
         </div>
+        }
       </div>
 
       <div
@@ -336,7 +355,7 @@ function App() {
       </div>
 
       {/* <Environment preset="sunset" background /> */}
-      <Suspense fallback={<Spinner/>}>
+      
       <Canvas>
         {/* <PerspectiveCamera makeDefault position={[0, 0, 5]} /> */}
         
@@ -358,7 +377,7 @@ function App() {
                 // blur
               />
             </EffectComposer>
-            <Loader meshName={meshName} boxRef={popUpBox} orbitRotation={rotation} />
+            <Loader meshName={meshName} boxRef={popUpBox} orbitRotation={rotation} plugDetails={plugDetails} />
           </Selection>
           <Environment files={'/assets/models/Concrete_Shelter.exr'} background  />
           {/* <Environment preset="" background  /> */}

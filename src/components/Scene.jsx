@@ -7,15 +7,17 @@ import { Vector3 } from "three";
 import { Select} from '@react-three/postprocessing'
 import { useGLTF } from '@react-three/drei'
 
-export const Loader = ({ meshName, boxRef,orbitRotation },props) => {
+export const Loader = ({ meshName, boxRef,orbitRotation,plugDetails },props) => {
   const gltf = useLoader(GLTFLoader, "/assets/models/Engine.gltf");
   const [mesh, setMesh] = useState(null);
+  // const [clonerVisibility, setClonerVisibility] = useState(true);
   const [selectedMeshName, setSelectedMeshName] = useState(null);
+  const [volumeMeshVisibility, setVolumeMeshVisibility] = useState(null);
   const { camera,scene,raycaster } = useThree();
   const selectedObjectRef = useRef(null);
   const ref = useRef(null);
+  const outlineRef = useRef(null);
   const { nodes, materials } = useGLTF('/assets/models/Engine.gltf')
- 
   const clickMouse = new THREE.Vector2();  // create once
   const draggable = useRef(null);
      function intersect(pos) {
@@ -27,15 +29,17 @@ export const Loader = ({ meshName, boxRef,orbitRotation },props) => {
        function onClick(event){
        // let changePosition;
        if (draggable.current != null) {
-        //if(found.length){}
-        console.log(`dropping draggable`)
-        if (initialPosition !== null) {
-          draggable.current.position.y = initialPosition.y;
-          draggable.current.position.z = initialPosition.z;
-          initialPosition = null;
+         //if(found.length){}
+         if (initialPosition !== null) {
+           console.log('here1',initialPosition)
+          draggable.current.position.copy(initialPosition);
+          initialPosition = null;  
+          // setClonerVisibility(true); 
         }
-        
-        draggable.current = null;
+          console.log('here2',initialPosition)
+          draggable.current = null;
+          console.log(`dropping draggable`)
+          // setClonerVisibility(true)
         return;
       }
       
@@ -47,14 +51,14 @@ export const Loader = ({ meshName, boxRef,orbitRotation },props) => {
       const found = intersect(clickMouse);
       // console.log(found[0])
       for (let i = 0; i < found.length; i++) {
-        console.log(found[i].object)
+        // console.log(found[i].object)
       }
       
       console.log(found.length)
       if (found.length > 0) {
+        
         draggable.current = found[0].object
-        console.log(`found draggable`)
-        console.log('draggable',draggable.current)
+
           // initialPosition = draggable.current.position.clone();
           // changePosition = initialPosition.add(new THREE.Vector3(0, 8, 0))
          
@@ -64,29 +68,37 @@ export const Loader = ({ meshName, boxRef,orbitRotation },props) => {
            
           
           if(draggable.current.userData.name && draggable.current.userData.name.startsWith('B')){
-
+            // gltf.scene.children[0].children[3].children[1].children[5].children[0].visible = false;
             initialPosition = draggable.current.position.clone(); 
+            console.log('here3', initialPosition)
             // Change the position of the mesh when picked up 
             if(draggable.current.userData.name ==='B1_1_10'|| draggable.current.userData.name ==='B1_1_11'  || draggable.current.userData.name ==='B2_1_4' || draggable.current.userData.name ==='B2_1_5' ){
               draggable.current.position.y += -50;
+              
             }
             else if (draggable.current.userData.name ==='B2_1_3' || draggable.current.userData.name ==='B2_1_2') {
               draggable.current.position.z += 50;
+             
             }
             else if(draggable.current.userData.name ==='B2_1_1'){
               draggable.current.position.z -= 50;
+             
             }
             else{
               draggable.current.position.y += 50;
+              
             }
-            // console.log(initialPosition)
-            // console.log(changePosition)
+            console.log(`found draggable`)
+            console.log('draggable',draggable.current)
+   
           }
           else{
-            console.log('clicked',draggable.current);
+            // console.log('clicked',draggable.current);
             draggable.current = null;
             return null;
           }
+          // setClonerVisibility(false)
+
       }
       }
 
@@ -96,16 +108,20 @@ export const Loader = ({ meshName, boxRef,orbitRotation },props) => {
       // const distance = 1; // Adjust the initial distance as needed for the desired zoom level
       let targetPosition ;
       if(meshName==='B1_1_2_2'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-98, -10, 40));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-98, -30, 10));
+        // targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-98, -10, 40));
       }
       else if(meshName==='B1_1_1' ){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-138, -10, 40));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-133, -30, 10));
+        // targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-138, -10, 40));
       }
       else if(meshName==='B1_1_2'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-168, 0, 70));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-158, -25, 46));
+        // targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-168, 0, 70));
       }
       else if(meshName==='B1_1_3'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-68, 1, 30));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-75, -20, 11));
+        // targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-68, 1, 30));
       }
       else if(meshName==='B1_1_4'){
         targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-60, -22, 10));
@@ -165,6 +181,13 @@ export const Loader = ({ meshName, boxRef,orbitRotation },props) => {
       else{
         targetPosition = objectToFocus.position.clone();
       }
+
+      // if(meshName === 'B1_1_7' || meshName === 'B1_1_8' || meshName === 'B1_1_9' || meshName === 'B1_1_11'){
+      //   setVolumeMeshVisibility(false);
+      // }
+      // else{
+      //   setVolumeMeshVisibility(true);
+      // }
       const duration = 1200; // Animation duration in milliseconds
       const startTime = performance.now(); // Record the start time
       const updateCamera = () => {
@@ -190,12 +213,20 @@ export const Loader = ({ meshName, boxRef,orbitRotation },props) => {
   };
 
 
-  const useFullChildrens = gltf.scene.children[0].children[3].children[0].children;
+  // const useFullChildrens = gltf.scene.children[0].children[3].children[0].children;
 
-  //console.log(gltf.scene.children[0].children[3].children[0].children)
+  // console.log(gltf.scene.children[0].children[3].children[0].children)
+  console.log(gltf.scene.children[0].children[3].children[1].children[5].children[0])
+  // console.log(gltf.scene)
 
-
-
+  function applyParentTransformations(object, position, scale) {
+    if (object.parent) {
+      // Recursively apply transformations of parent objects
+      applyParentTransformations(object.parent, position, scale);
+      position.add(object.parent.position);
+      scale.multiply(object.parent.scale);
+    }
+  }
 
   useEffect(() => {
 
@@ -205,7 +236,6 @@ export const Loader = ({ meshName, boxRef,orbitRotation },props) => {
         // childrens =gltf.scene.children[0].children[3].children[0].children[2].children;
     
         childrens =gltf.scene.children[0].children[3].children[0].children[2].children;
-        //console.log(meshName);
       } else if (meshName.startsWith("B2")) {
         childrens =
           gltf.scene.children[0].children[3].children[0].children[1].children;
@@ -215,20 +245,35 @@ export const Loader = ({ meshName, boxRef,orbitRotation },props) => {
       }
 
       const mesh = childrens.find((mesh) => mesh.name === meshName);
-      //setMesh(meshFound)
       if (mesh) {
-        // Do something with the found mesh, e.g., manipulate it
-        //console.log("Found mesh:", mesh);
         selectedObjectRef.current = mesh;  
-        console.log(mesh)
-        focusCameraOnObject(mesh);
+        // console.log(mesh)
+       focusCameraOnObject(mesh);
         const box = boxRef.current;
         box.style.display = "block";
-        // const effect  = new THREE.
+        // outlineRef.current.position.copy(selectedObjectRef.current.position);
+        // outlineRef.current.scale.set(10, 10, 10);
+      //   const offset = new THREE.Vector3(0, 0, 0); // Adjust the offset as needed
+      //   outlineRef.current.position.copy(selectedObjectRef.current.position).add(offset);
+      //   outlineRef.current.scale.copy(selectedObjectRef.current.scale);
+      //   // outlineRef.current.scale.set(0.1, 0.1, 0.1);
+      // console.log(outlineRef.current.position)
+      //   const edges = new THREE.EdgesGeometry(selectedObjectRef.current.geometry);
+      //   const outlineMaterial = new THREE.LineBasicMaterial({ color: 0xff12ff });
+      //   const outline = new THREE.LineSegments(edges, outlineMaterial);
+      //   // outline.renderOrder = 1; 
+      //   outlineRef.current.add(outline);
+      // const position = new THREE.Vector3();
+      // const scale = new THREE.Vector3(1, 1, 1);
+      
+      // applyParentTransformations(selectedObjectRef.current, position, scale);
+      
+      // outlineRef.current.position.copy(position);
+      // outlineRef.current.scale.copy(scale);
+      // outlineRef.current.scale.set(100,100,100);
+      // console.log(outlineRef.current.position)
         setSelectedMeshName(meshName);
-        // console.log(`${selectedObjectRef.current.mesh}`);
-      //  console.log("mesh: ",selectedObjectRef.current);
-      console.log(meshName)
+      // console.log(meshName)
       } else {
         console.log("Mesh not found");
       }
@@ -237,42 +282,34 @@ export const Loader = ({ meshName, boxRef,orbitRotation },props) => {
   }, [meshName]);
 
 useEffect(() => {
-  window.addEventListener('click',onClick)
+  plugDetails === true  && window.addEventListener('click',onClick)
 
   return () => {
     window.removeEventListener('click', onClick);
   } 
 }, [onClick])
 
-// useEffect(() => {
-//   if(orbitRotation === true){
-//     camera.fov = 30
-//   }
-
-// }, [orbitRotation])
-
-
   return (
     <>
         <PerspectiveCamera makeDefault position={[0, 0, 3]} />
-      {/* <Select enabled={false}>
-          <primitive  object={gltf.scene}  />
-      </Select> */}
-      
-<group {...props} dispose={null}>
+
+          { plugDetails ===false && <primitive  object={gltf.scene}  />}
+
+   { plugDetails ===true &&
+    <group {...props} dispose={null}>
       <group position={[0.403, -0.225, -0.83]} rotation={[Math.PI / 2, 0, 0]} scale={[0.004, 0.005, 0.005]}>
         <group position={[85.087, -4.453, 86.894]} rotation={[0, 0.071, -Math.PI / 2]} scale={[0.776, 1.043, 0.902]}>
           <mesh geometry={nodes.Gearbox.geometry} material={materials['01 - Default3']} position={[-24.608, -185.514, 17.744]} rotation={[0.083, 0, Math.PI / 2]} scale={[2.683, 2.778, 2.404]} />
           <mesh geometry={nodes.Tubes.geometry} material={materials['07 - Default']} position={[66.348, -156.709, 34.764]} rotation={[0.083, 0, Math.PI / 2]} scale={[2.683, 2.778, 2.404]} />
           <group position={[-37.636, -196.176, -44.021]} rotation={[0.083, 0, Math.PI / 2]} scale={[2.683, 2.778, 2.404]}>
             <mesh geometry={nodes.Cylinder_1.geometry} material={materials['07 - Default']} />
-             {/* <mesh geometry={nodes.Cylinder_4.geometry} material={materials['Matt Chrome3']} />  */}
+
           </group>
           <mesh geometry={nodes.Cloner.geometry} material={materials['Matt Chrome']} position={[100.672, -251.55, -8.423]} rotation={[0.083, 0, Math.PI / 2]} scale={[2.683, 2.778, 2.404]} />
           <mesh geometry={nodes['8'].geometry} material={materials['Matt Chrome3']} position={[36.561, -193.577, 6.066]} rotation={[0.083, 0, Math.PI / 2]} scale={[2.683, 2.778, 2.404]} />
         </group>
         <group position={[-228.938, -8.626, -23.383]}>
-          <mesh geometry={nodes.Volume_Mesher.geometry} material={materials['07 - Default']} position={[516.98, -12.576, 21.863]} scale={[2.5, 2.155, 2.155]} />
+          <mesh geometry={nodes.Volume_Mesher.geometry} material={materials['07 - Default']} position={[516.98, -12.576, 21.863]} scale={[2.5, 2.155, 2.155]} visible={volumeMeshVisibility}/>
         </group>
         <group position={[-300.109, 2.823, -22.473]}>
           <group position={[-124.398, 0, 0]} scale={[1.4, 1, 1]}>
@@ -379,9 +416,9 @@ useEffect(() => {
             <mesh geometry={nodes.Null_2.geometry} material={materials['Matt Chrome2']} position={[-345.45, 0.433, -0.119]} scale={[2.5, 2.155, 2.155]} />
             <mesh geometry={nodes.Nuts.geometry} material={materials['Matt Chrome']} position={[-254.432, 0, 0]} scale={[2.5, 2.155, 2.155]} />
             <group position={[-280.77, 0, 0]} scale={[2.5, 2.155, 2.155]}>
-              <mesh geometry={nodes.Null_Cloner_1.geometry} material={materials['01 - Default']} />
-              <mesh geometry={nodes.Null_Cloner_2.geometry} material={materials['01 - Default2']} />
-              <mesh geometry={nodes.Null_Cloner_3.geometry} material={materials['01 - Default23']} />
+              <mesh geometry={nodes.Null_Cloner_1.geometry} material={materials['01 - Default']} visible={plugDetails === true && false} />
+              <mesh geometry={nodes.Null_Cloner_2.geometry} material={materials['01 - Default2']} visible={plugDetails === true && false} />
+              <mesh geometry={nodes.Null_Cloner_3.geometry} material={materials['01 - Default23']}  />
             </group>
           </group>
           <group position={[-98.473, 4.016, 19.474]}>
@@ -411,7 +448,7 @@ useEffect(() => {
           <group position={[37.049, 0, 0]} scale={[2.5, 2.155, 2.155]}>
             <mesh geometry={nodes.Boole_2.geometry} material={materials['07 - Default3']} />
             <mesh geometry={nodes.Boole_3.geometry} material={materials['07 - Default2']} />
-            {/* <mesh geometry={nodes.Boole_4.geometry} material={materials['07 - Default3']} /> */}
+
           </group>
           <mesh geometry={nodes.Boole_1.geometry} material={materials['07 - Default']} position={[37.049, 0, 0]} scale={[2.5, 2.155, 2.155]} />
           <mesh geometry={nodes['4_3'].geometry} material={materials['07 - Default']} position={[-70.337, 0, 0]} scale={[2.5, 2.155, 2.155]} />
@@ -427,8 +464,14 @@ useEffect(() => {
       <mesh geometry={nodes.Cloner_5.geometry} material={materials['01 - Default2']} position={[0.413, -0.12, -0.817]} rotation={[Math.PI / 2, 0, 0]} scale={0.01} />
       <mesh geometry={nodes.Moving_Wings_2.geometry} material={materials['01 - Default2']} position={[1.248, -0.12, -0.817]} rotation={[Math.PI / 2, 0, Math.PI]} scale={[0.01, -0.01, 0.01]} />
       <mesh geometry={nodes.Stationary_Blades.geometry} material={materials['07 - Default']} position={[1.2, -0.12, -0.817]} rotation={[Math.PI / 2, 0, Math.PI]} scale={[0.01, -0.01, 0.01]} />
-    </group>
+    </group>}
+
+
+    
+
     </>
   );
 };
 useGLTF.preload('src/assets/models/Engine.gltf')
+
+
