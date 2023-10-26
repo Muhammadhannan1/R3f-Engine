@@ -72,7 +72,7 @@ export const Loader = ({ meshName, boxRef,orbitRotation,plugDetails },props) => 
             initialPosition = draggable.current.position.clone(); 
             console.log('here3', initialPosition)
             // Change the position of the mesh when picked up 
-            if(draggable.current.userData.name ==='B1_1_10'|| draggable.current.userData.name ==='B1_1_11'  || draggable.current.userData.name ==='B2_1_4' || draggable.current.userData.name ==='B2_1_5' ){
+            if(draggable.current.userData.name ==='B1_1_10'|| draggable.current.userData.name ==='B1_1_11'  || draggable.current.userData.name ==='B1_1_7'  || draggable.current.userData.name ==='B2_1_4' || draggable.current.userData.name ==='B2_1_5' ){
               draggable.current.position.y += -50;
               
             }
@@ -133,16 +133,21 @@ export const Loader = ({ meshName, boxRef,orbitRotation,plugDetails },props) => 
         targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-30, -15, 10));
       }
       else if( meshName==='B1_1_7'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-10, 130, 50));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(0, 100, 40));
       }
       else if( meshName==='B1_1_8'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(10, 20, 40));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(25, 15, 75));
       }
       else if( meshName==='B1_1_9'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(30, 30, 50));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(33, 10, 74));
       }
-      else if(meshName==='B1_1_10' || meshName==='B1_1_11'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(40, 150, -20));
+      else if(meshName==='B1_1_10'){
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(60, 123, 10));
+        // targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(40, 150, -20));
+      }
+      else if(meshName==='B1_1_11'){
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(80, 110,20));
+        // targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(40, 150, -20));
       }
       else if(meshName==='B1_1_12' || meshName==='B1_1_13'){
         targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(100, -16, 0));
@@ -176,7 +181,7 @@ export const Loader = ({ meshName, boxRef,orbitRotation,plugDetails },props) => 
         targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(30, -40, 45));
       }
       else if(meshName==='B4_1_3'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(70, -60, 60));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(80, -60, 60));
       }
       else{
         targetPosition = objectToFocus.position.clone();
@@ -308,9 +313,9 @@ useEffect(() => {
           <mesh geometry={nodes.Cloner.geometry} material={materials['Matt Chrome']} position={[100.672, -251.55, -8.423]} rotation={[0.083, 0, Math.PI / 2]} scale={[2.683, 2.778, 2.404]} />
           <mesh geometry={nodes['8'].geometry} material={materials['Matt Chrome3']} position={[36.561, -193.577, 6.066]} rotation={[0.083, 0, Math.PI / 2]} scale={[2.683, 2.778, 2.404]} />
         </group>
-        <group position={[-228.938, -8.626, -23.383]}>
+        { meshName !== 'B1_1_7' && meshName !== 'B1_1_8' && meshName !== 'B1_1_9' && meshName !== 'B1_1_11' && <group position={[-228.938, -8.626, -23.383]}>
           <mesh geometry={nodes.Volume_Mesher.geometry} material={materials['07 - Default']} position={[516.98, -12.576, 21.863]} scale={[2.5, 2.155, 2.155]} visible={volumeMeshVisibility}/>
-        </group>
+        </group> }
         <group position={[-300.109, 2.823, -22.473]}>
           <group position={[-124.398, 0, 0]} scale={[1.4, 1, 1]}>
             <mesh geometry={nodes['7'].geometry} material={materials['07 - Default']} position={[-105.214, 0, 0]} scale={[1.786, 2.155, 2.155]} />

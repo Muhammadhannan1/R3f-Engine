@@ -88,7 +88,7 @@ function App() {
           zIndex: "1",
           // padding: "5px 1rem",
           backgroundColor: "rgb(28 23 22)",
-          // width: "20vw",
+          width: "21vw",
           // height:"10vh"
         }}
       >
