@@ -13,6 +13,7 @@ export const Loader = ({ meshName, boxRef,orbitRotation,plugDetails },props) => 
   // const [clonerVisibility, setClonerVisibility] = useState(true);
   const [selectedMeshName, setSelectedMeshName] = useState(null);
   const [volumeMeshVisibility, setVolumeMeshVisibility] = useState(null);
+  const [Visibility, setVisibility] = useState(true);
   const { camera,scene,raycaster } = useThree();
   const selectedObjectRef = useRef(null);
   const ref = useRef(null);
@@ -27,6 +28,11 @@ export const Loader = ({ meshName, boxRef,orbitRotation,plugDetails },props) => 
        let initialPosition = null;
       //  let initialScale = null 
        function onClick(event){
+        //  console.log(event.target)
+
+        if (event.target) {
+          console.log(event)
+        }
        // let changePosition;
        if (draggable.current != null) {
          //if(found.length){}
@@ -112,76 +118,79 @@ export const Loader = ({ meshName, boxRef,orbitRotation,plugDetails },props) => 
         // targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-98, -10, 40));
       }
       else if(meshName==='B1_1_1' ){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-133, -30, 10));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-130, -24, 20));
         // targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-138, -10, 40));
       }
       else if(meshName==='B1_1_2'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-158, -25, 46));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-156, -20, 55));
         // targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-168, 0, 70));
       }
       else if(meshName==='B1_1_3'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-75, -20, 11));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-78, -25, 14));
         // targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-68, 1, 30));
       }
       else if(meshName==='B1_1_4'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-60, -22, 10));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-57, -33, 15));
       }
       else if( meshName==='B1_1_5'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-48, -16, 10));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-38, -25, 15));
       }
       else if( meshName==='B1_1_6'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-30, -15, 10));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-22, -26, 15));
       }
       else if( meshName==='B1_1_7'){
         targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(0, 100, 40));
       }
       else if( meshName==='B1_1_8'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(25, 15, 75));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(25, 5, 90));
       }
       else if( meshName==='B1_1_9'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(33, 10, 74));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(42, 0, 90));
       }
       else if(meshName==='B1_1_10'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(60, 123, 10));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(60, 122, 0));
         // targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(40, 150, -20));
       }
       else if(meshName==='B1_1_11'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(80, 110,20));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(77, 114,10));
         // targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(40, 150, -20));
       }
-      else if(meshName==='B1_1_12' || meshName==='B1_1_13'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(100, -16, 0));
+      else if(meshName==='B1_1_12'){
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(98, -28, 0));
+      }
+      else if( meshName==='B1_1_13'){
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(119, -25, 0));
       }
       else if (meshName==='B2_1_1'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-30, -70, 100));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3( 0, -65, 120));
       }
       else if (meshName==='B2_1_2'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-10, -60, -30));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(0, -50, -40));
       }
       else if (meshName==='B2_1_3'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-30, 10, -50));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(0,35,-100));
       }
       else if (meshName==='B2_1_4'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-30, 90, 0));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(0, 75, 0));
         // targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-70, 90, 0));
       }
       else if (meshName==='B2_1_5'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-30, 70, 50));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(0, 55, 50));
       }
       else if(meshName==='B3_1'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-80, -10, 40));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-100, -15, 40));
       }
       else if( meshName==='B3_2'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-60, 3, -10));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-70, 15, -10));
       }
       else if(meshName==='B4_1' ){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(10, -20, 40));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-20, -32, 60));
       }
       else if(meshName==='B4_1_2' ){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(30, -40, 45));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(10, -40, 45));
       }
       else if(meshName==='B4_1_3'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(80, -60, 60));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(60, -60, 70));
       }
       else{
         targetPosition = objectToFocus.position.clone();
@@ -221,20 +230,16 @@ export const Loader = ({ meshName, boxRef,orbitRotation,plugDetails },props) => 
   // const useFullChildrens = gltf.scene.children[0].children[3].children[0].children;
 
   // console.log(gltf.scene.children[0].children[3].children[0].children)
-  console.log(gltf.scene.children[0].children[3].children[1].children[5].children[0])
+  // console.log(gltf.scene.children[0].children[3].children[1].children[5].children[0])
   // console.log(gltf.scene)
 
-  function applyParentTransformations(object, position, scale) {
-    if (object.parent) {
-      // Recursively apply transformations of parent objects
-      applyParentTransformations(object.parent, position, scale);
-      position.add(object.parent.position);
-      scale.multiply(object.parent.scale);
-    }
-  }
 
   useEffect(() => {
-
+    if (meshName==='') {
+      setVisibility(true)
+    } else {
+      setVisibility(false)
+    }
     if (meshName !== "") {
       var childrens;
       if (meshName.startsWith("B1")) {
@@ -256,27 +261,7 @@ export const Loader = ({ meshName, boxRef,orbitRotation,plugDetails },props) => 
        focusCameraOnObject(mesh);
         const box = boxRef.current;
         box.style.display = "block";
-        // outlineRef.current.position.copy(selectedObjectRef.current.position);
-        // outlineRef.current.scale.set(10, 10, 10);
-      //   const offset = new THREE.Vector3(0, 0, 0); // Adjust the offset as needed
-      //   outlineRef.current.position.copy(selectedObjectRef.current.position).add(offset);
-      //   outlineRef.current.scale.copy(selectedObjectRef.current.scale);
-      //   // outlineRef.current.scale.set(0.1, 0.1, 0.1);
-      // console.log(outlineRef.current.position)
-      //   const edges = new THREE.EdgesGeometry(selectedObjectRef.current.geometry);
-      //   const outlineMaterial = new THREE.LineBasicMaterial({ color: 0xff12ff });
-      //   const outline = new THREE.LineSegments(edges, outlineMaterial);
-      //   // outline.renderOrder = 1; 
-      //   outlineRef.current.add(outline);
-      // const position = new THREE.Vector3();
-      // const scale = new THREE.Vector3(1, 1, 1);
-      
-      // applyParentTransformations(selectedObjectRef.current, position, scale);
-      
-      // outlineRef.current.position.copy(position);
-      // outlineRef.current.scale.copy(scale);
-      // outlineRef.current.scale.set(100,100,100);
-      // console.log(outlineRef.current.position)
+ 
         setSelectedMeshName(meshName);
       // console.log(meshName)
       } else {
@@ -298,25 +283,26 @@ useEffect(() => {
     <>
         <PerspectiveCamera makeDefault position={[0, 0, 3]} />
 
-          { plugDetails ===false && <primitive  object={gltf.scene}  />}
+          {meshName ==='' && <primitive  object={gltf.scene}  />}
 
-   { plugDetails ===true &&
+   {meshName !=='' &&
     <group {...props} dispose={null}>
-      <group position={[0.403, -0.225, -0.83]} rotation={[Math.PI / 2, 0, 0]} scale={[0.004, 0.005, 0.005]}>
-        <group position={[85.087, -4.453, 86.894]} rotation={[0, 0.071, -Math.PI / 2]} scale={[0.776, 1.043, 0.902]}>
-          <mesh geometry={nodes.Gearbox.geometry} material={materials['01 - Default3']} position={[-24.608, -185.514, 17.744]} rotation={[0.083, 0, Math.PI / 2]} scale={[2.683, 2.778, 2.404]} />
-          <mesh geometry={nodes.Tubes.geometry} material={materials['07 - Default']} position={[66.348, -156.709, 34.764]} rotation={[0.083, 0, Math.PI / 2]} scale={[2.683, 2.778, 2.404]} />
-          <group position={[-37.636, -196.176, -44.021]} rotation={[0.083, 0, Math.PI / 2]} scale={[2.683, 2.778, 2.404]}>
+      <group position={[0.403, -0.225, -0.83]} rotation={[Math.PI / 2, 0, 0]} scale={[0.004, 0.005, 0.005]}  >
+        <group position={[85.087, -4.453, 86.894]} rotation={[0, 0.071, -Math.PI / 2]} scale={[0.776, 1.043, 0.902]} visible={false}>
+          <mesh geometry={nodes.Gearbox.geometry} material={materials['01 - Default3']} position={[-24.608, -185.514, 17.744]} rotation={[0.083, 0, Math.PI / 2]} scale={[2.683, 2.778, 2.404]} visible={false} />
+          <mesh geometry={nodes.Tubes.geometry} material={materials['07 - Default']} position={[66.348, -156.709, 34.764]} rotation={[0.083, 0, Math.PI / 2]} scale={[2.683, 2.778, 2.404]} visible={false} />
+          <group position={[-37.636, -196.176, -44.021]} rotation={[0.083, 0, Math.PI / 2]} scale={[2.683, 2.778, 2.404]} visible = {false} >
             <mesh geometry={nodes.Cylinder_1.geometry} material={materials['07 - Default']} />
-
           </group>
           <mesh geometry={nodes.Cloner.geometry} material={materials['Matt Chrome']} position={[100.672, -251.55, -8.423]} rotation={[0.083, 0, Math.PI / 2]} scale={[2.683, 2.778, 2.404]} />
           <mesh geometry={nodes['8'].geometry} material={materials['Matt Chrome3']} position={[36.561, -193.577, 6.066]} rotation={[0.083, 0, Math.PI / 2]} scale={[2.683, 2.778, 2.404]} />
         </group>
-        { meshName !== 'B1_1_7' && meshName !== 'B1_1_8' && meshName !== 'B1_1_9' && meshName !== 'B1_1_11' && <group position={[-228.938, -8.626, -23.383]}>
+        { meshName === ''  && <group position={[-228.938, -8.626, -23.383]}>
+        {/* { meshName !== 'B1_1_7' && meshName !== 'B1_1_8' && meshName !== 'B1_1_9' && meshName !== 'B1_1_11' && <group position={[-228.938, -8.626, -23.383]}> */}
           <mesh geometry={nodes.Volume_Mesher.geometry} material={materials['07 - Default']} position={[516.98, -12.576, 21.863]} scale={[2.5, 2.155, 2.155]} visible={volumeMeshVisibility}/>
         </group> }
-        <group position={[-300.109, 2.823, -22.473]}>
+        < group position={[-300.109, 2.823, -22.473]}>
+       {/* {meshName ==='' && < group position={[-300.109, 2.823, -22.473]}> */}
           <group position={[-124.398, 0, 0]} scale={[1.4, 1, 1]}>
             <mesh geometry={nodes['7'].geometry} material={materials['07 - Default']} position={[-105.214, 0, 0]} scale={[1.786, 2.155, 2.155]} />
             <mesh geometry={nodes['6'].geometry} material={materials['07 - Default']} position={[-88.642, 0, 0]} scale={[1.786, 2.155, 2.155]} />
@@ -414,17 +400,17 @@ useEffect(() => {
               </Select>
             </group>
           </group>
-          <group position={[5.357, 4.016, 19.474]}>
+         <group position={[5.357, 4.016, 19.474]}>
             <mesh geometry={nodes.Stationary_Wings_1.geometry} material={materials['01 - Default2']} position={[-95.835, 0, 0]} scale={[2.5, 2.155, 2.155]} />
-            <mesh geometry={nodes.Null.geometry} material={materials['07 - Default']} position={[-523.633, 0.261, -0.723]} scale={[2.5, 2.155, 2.155]} />
-            <mesh geometry={nodes.Cloner_1.geometry} material={materials['Matt Chrome2']} position={[-309.143, 0, 0]} scale={[2.5, 2.155, 2.155]} />
-            <mesh geometry={nodes.Null_2.geometry} material={materials['Matt Chrome2']} position={[-345.45, 0.433, -0.119]} scale={[2.5, 2.155, 2.155]} />
+            <mesh geometry={nodes.Null.geometry} material={materials['07 - Default']} position={[-523.633, 0.261, -0.723]} scale={[2.5, 2.155, 2.155]}  visible={false}/>
+            <mesh geometry={nodes.Cloner_1.geometry} material={materials['Matt Chrome2']} position={[-309.143, 0, 0]} scale={[2.5, 2.155, 2.155]} visible={false}/>
+            <mesh geometry={nodes.Null_2.geometry} material={materials['Matt Chrome2']} position={[-345.45, 0.433, -0.119]} scale={[2.5, 2.155, 2.155]}  visible={false} />
             <mesh geometry={nodes.Nuts.geometry} material={materials['Matt Chrome']} position={[-254.432, 0, 0]} scale={[2.5, 2.155, 2.155]} />
-            <group position={[-280.77, 0, 0]} scale={[2.5, 2.155, 2.155]}>
-              <mesh geometry={nodes.Null_Cloner_1.geometry} material={materials['01 - Default']} visible={plugDetails === true && false} />
-              <mesh geometry={nodes.Null_Cloner_2.geometry} material={materials['01 - Default2']} visible={plugDetails === true && false} />
-              <mesh geometry={nodes.Null_Cloner_3.geometry} material={materials['01 - Default23']}  />
-            </group>
+           <group position={[-280.77, 0, 0]} scale={[2.5, 2.155, 2.155]}>
+            <mesh geometry={nodes.Null_Cloner_1.geometry} material={materials['01 - Default']} visible={plugDetails === true && false} />
+            <mesh geometry={nodes.Null_Cloner_2.geometry} material={materials['01 - Default2']} visible={plugDetails === true && false} />
+            <mesh geometry={nodes.Null_Cloner_3.geometry} material={materials['01 - Default23']} visible={false} />
+          </group>
           </group>
           <group position={[-98.473, 4.016, 19.474]}>
             <mesh geometry={nodes['14'].geometry} material={materials['07 - Default']} position={[-131.527, 0, 0]} scale={[2.5, 2.155, 2.155]} />
@@ -442,33 +428,33 @@ useEffect(() => {
             <mesh geometry={nodes['2_2'].geometry} material={materials['07 - Default']} position={[104.97, 0, 0]} scale={[2.5, 2.155, 2.155]} />
             <mesh geometry={nodes['1_2'].geometry} material={materials['07 - Default']} position={[135.019, 0, 0]} scale={[2.5, 2.155, 2.155]} />
           </group>
-          <mesh geometry={nodes.Cloner_4.geometry} material={materials['07 - Default']} position={[-296.999, 4.016, 19.474]} scale={[2.5, 2.155, 2.155]} />
+          <mesh geometry={nodes.Cloner_4.geometry} material={materials['07 - Default']} position={[-296.999, 4.016, 19.474]} scale={[2.5, 2.155, 2.155]} visible={false} />
           <mesh geometry={nodes.Cylinder_3.geometry} material={materials['01 - Default']} position={[-151.903, 4.016, 19.6]} scale={[2.5, 2.155, 2.155]} />
           <mesh geometry={nodes.Cloth_Surface_1.geometry} material={materials['01 - Default']} position={[74.285, 4.016, 19.474]} scale={[2.5, 2.155, 2.155]} />
           <mesh geometry={nodes.Nuts_2.geometry} material={nodes.Nuts_2.material} position={[44.4, -5.115, -55.908]} scale={[2.5, 2.155, 2.155]} />
-          <mesh geometry={nodes.Remesh_2.geometry} material={materials['Matt Chrome']} position={[45.381, 0.677, -68.718]} scale={[2.5, 2.155, 2.155]} />
+          <mesh geometry={nodes.Remesh_2.geometry} material={materials['Matt Chrome']} position={[45.381, 0.677, -68.718]} scale={[2.5, 2.155, 2.155]}  visible={false}/>
         </group>
         <group position={[193.137, 2.823, -22.473]}>
-          <mesh geometry={nodes.Nuts_3.geometry} material={materials['01 - Default2']} position={[-3.147, 0, 0]} scale={[2.5, 2.155, 2.155]} />
+          <mesh geometry={nodes.Nuts_3.geometry} material={materials['01 - Default']} position={[-3.147, 0, 0]} scale={[2.5, 2.155, 2.155]} />
           <group position={[37.049, 0, 0]} scale={[2.5, 2.155, 2.155]}>
-            <mesh geometry={nodes.Boole_2.geometry} material={materials['07 - Default3']} />
-            <mesh geometry={nodes.Boole_3.geometry} material={materials['07 - Default2']} />
+            <mesh geometry={nodes.Boole_2.geometry} material={materials['07 - Default3']}  visible={false}/>
+            <mesh geometry={nodes.Boole_3.geometry} material={materials['07 - Default2']} visible={false} />
 
           </group>
-          <mesh geometry={nodes.Boole_1.geometry} material={materials['07 - Default']} position={[37.049, 0, 0]} scale={[2.5, 2.155, 2.155]} />
-          <mesh geometry={nodes['4_3'].geometry} material={materials['07 - Default']} position={[-70.337, 0, 0]} scale={[2.5, 2.155, 2.155]} />
-          <mesh geometry={nodes.Wing_3.geometry} material={materials['07 - Default']} position={[32.461, 0, 0]} scale={[2.5, 2.155, 2.155]} />
+          <mesh geometry={nodes.Boole_1.geometry} material={materials['01 - Default']} position={[37.049, 0, 0]} scale={[2.5, 2.155, 2.155]} visible={false} />
+          <mesh geometry={nodes['4_3'].geometry} material={materials['01 - Default']} position={[-70.337, 0, 0]} scale={[2.5, 2.155, 2.155]}  />
+          <mesh geometry={nodes.Wing_3.geometry} material={materials['01 - Default']} position={[32.461, 0, 0]} scale={[2.5, 2.155, 2.155]} />
           <mesh geometry={nodes.Wing_1.geometry} material={materials['01 - Default']} position={[108.047, 0, 0]} scale={[2.385, 2.056, 2.056]} />
-          <group position={[155.857, -0.107, -0.122]} scale={[2.5, 2.155, 2.155]}>
+          <group position={[155.857, -0.107, -0.122]} scale={[2.5, 2.155, 2.155]} >
             <mesh geometry={nodes.Null_3_1.geometry} material={materials['01 - Default']} />
             <mesh geometry={nodes.Null_3_2.geometry} material={materials['01 - Default3']} />
           </group>
         </group>
       </group>
-      <mesh geometry={nodes['Cloner_(1)'].geometry} material={materials['02 - Default']} position={[0.22, -0.102, -0.817]} rotation={[1.573, 0, 0]} scale={0.01} />
-      <mesh geometry={nodes.Cloner_5.geometry} material={materials['01 - Default2']} position={[0.413, -0.12, -0.817]} rotation={[Math.PI / 2, 0, 0]} scale={0.01} />
-      <mesh geometry={nodes.Moving_Wings_2.geometry} material={materials['01 - Default2']} position={[1.248, -0.12, -0.817]} rotation={[Math.PI / 2, 0, Math.PI]} scale={[0.01, -0.01, 0.01]} />
-      <mesh geometry={nodes.Stationary_Blades.geometry} material={materials['07 - Default']} position={[1.2, -0.12, -0.817]} rotation={[Math.PI / 2, 0, Math.PI]} scale={[0.01, -0.01, 0.01]} />
+      <mesh geometry={nodes['Cloner_(1)'].geometry} material={materials['02 - Default']} position={[0.22, -0.102, -0.817]} rotation={[1.573, 0, 0]} scale={0.01} visible={false}/>
+      <mesh geometry={nodes.Cloner_5.geometry} material={materials['01 - Default2']} position={[0.413, -0.12, -0.817]} rotation={[Math.PI / 2, 0, 0]} scale={0.01} visible={false}  />
+      <mesh geometry={nodes.Moving_Wings_2.geometry} material={materials['01 - Default2']} position={[1.248, -0.12, -0.817]} rotation={[Math.PI / 2, 0, Math.PI]} scale={[0.01, -0.01, 0.01]}  visible={false} />
+      <mesh geometry={nodes.Stationary_Blades.geometry} material={materials['07 - Default']} position={[1.2, -0.12, -0.817]} rotation={[Math.PI / 2, 0, Math.PI]} scale={[0.01, -0.01, 0.01]}  visible={false}/>
     </group>}
 
 

@@ -90,6 +90,8 @@ function App() {
           backgroundColor: "rgb(28 23 22)",
           width: "21vw",
           // height:"10vh"
+          marginLeft:'1rem',
+          marginTop:'1rem'
         }}
       >
         <button
@@ -105,9 +107,9 @@ function App() {
             marginBottom:"10px"
           }}
         >
-          Show me {rotation ===true ? '(click to stop rotation)':'(click to start rotation)'}
+          Show me
         </button>
-        <button
+        {/* <button
         onClick={() => setPlugDetails(!plugDetails)}
           style={{
             width: "100%",
@@ -121,8 +123,8 @@ function App() {
           }}
         >
           Plugs in details {`(${plugDetails===true ? 'active' : 'inactive'})`}
-        </button>
-        { plugDetails===true &&
+        </button> */}
+        { 
         <div style={{backgroundColor:'rgb(28 23 22)'}} className="accordion" id="accordionExample">
           <div style={{backgroundColor:'rgb(28 23 22)',color:"rgb(221, 139, 59)"}} className="accordion-item">
             <h2 className="accordion-header" id="headingOne">

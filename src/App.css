@@ -25,3 +25,7 @@ li>a{
 .accordion-body>ul>li>a{
   color:rgb(172, 155, 145) ;
 }
+.accordion-button::after {
+  -webkit-filter: grayscale(1) invert(1);
+  filter: grayscale(1) invert(1);
+  }
