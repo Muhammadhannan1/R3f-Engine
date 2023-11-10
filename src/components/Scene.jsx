@@ -7,7 +7,7 @@ import { Vector3 } from "three";
 import { Select} from '@react-three/postprocessing'
 import { useGLTF } from '@react-three/drei'
 
-export const Loader = ({ meshName, boxRef,orbitRotation,plugDetails },props) => {
+export const Loader = ({ meshName, boxRef,orbitRotation },props) => {
   const gltf = useLoader(GLTFLoader, "/assets/models/Engine.gltf");
   const [mesh, setMesh] = useState(null);
   // const [clonerVisibility, setClonerVisibility] = useState(true);
@@ -28,11 +28,12 @@ export const Loader = ({ meshName, boxRef,orbitRotation,plugDetails },props) => 
        let initialPosition = null;
       //  let initialScale = null 
        function onClick(event){
+        console.log('logging')
         //  console.log(event.target)
 
-        if (event.target) {
-          console.log(event)
-        }
+        // if (event.target) {
+        //   console.log(event)
+        // }
        // let changePosition;
        if (draggable.current != null) {
          //if(found.length){}
@@ -272,7 +273,7 @@ export const Loader = ({ meshName, boxRef,orbitRotation,plugDetails },props) => 
   }, [meshName]);
 
 useEffect(() => {
-  plugDetails === true  && window.addEventListener('click',onClick)
+ window.addEventListener('click',onClick)
 
   return () => {
     window.removeEventListener('click', onClick);
@@ -407,8 +408,8 @@ useEffect(() => {
             <mesh geometry={nodes.Null_2.geometry} material={materials['Matt Chrome2']} position={[-345.45, 0.433, -0.119]} scale={[2.5, 2.155, 2.155]}  visible={false} />
             <mesh geometry={nodes.Nuts.geometry} material={materials['Matt Chrome']} position={[-254.432, 0, 0]} scale={[2.5, 2.155, 2.155]} />
            <group position={[-280.77, 0, 0]} scale={[2.5, 2.155, 2.155]}>
-            <mesh geometry={nodes.Null_Cloner_1.geometry} material={materials['01 - Default']} visible={plugDetails === true && false} />
-            <mesh geometry={nodes.Null_Cloner_2.geometry} material={materials['01 - Default2']} visible={plugDetails === true && false} />
+            <mesh geometry={nodes.Null_Cloner_1.geometry} material={materials['01 - Default']} visible={false} />
+            <mesh geometry={nodes.Null_Cloner_2.geometry} material={materials['01 - Default2']} visible={false} />
             <mesh geometry={nodes.Null_Cloner_3.geometry} material={materials['01 - Default23']} visible={false} />
           </group>
           </group>

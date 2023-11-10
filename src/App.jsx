@@ -73,7 +73,7 @@ const data2 = {
 function App() {
   const [meshName, setMeshName] = useState("");
   const [rotation, setRotaion] = useState(false);
-  const [plugDetails, setPlugDetails] = useState(false)
+  // const [plugDetails, setPlugDetails] = useState(false)
   const setName = (name) => {
     setMeshName(name);
   };
@@ -379,7 +379,7 @@ function App() {
                 // blur
               />
             </EffectComposer>
-            <Loader meshName={meshName} boxRef={popUpBox} orbitRotation={rotation} plugDetails={plugDetails} />
+            <Loader meshName={meshName} boxRef={popUpBox} orbitRotation={rotation}  />
           </Selection>
           <Environment files={'/assets/models/Concrete_Shelter.exr'} background  />
           {/* <Environment preset="" background  /> */}
