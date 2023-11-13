@@ -2,7 +2,7 @@ import { useState, Suspense, useRef, useEffect } from "react";
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
 import "./App.css";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, events } from "@react-three/fiber";
 import {
   Environment,
   OrbitControls,
@@ -73,9 +73,30 @@ const data2 = {
 function App() {
   const [meshName, setMeshName] = useState("");
   const [rotation, setRotaion] = useState(false);
+  const [tabName, setTabName] = useState('')
   // const [plugDetails, setPlugDetails] = useState(false)
+//  const updateTabName = (event) => {
+//   if (tabName === event.target.innerText) {
+//     setTabName('')
+//   } else {
+//     setTabName(event.target.innerText)
+//   }
+
+//  } 
+//   useEffect(() => {
+//     updateTabName(e)
+//   }, [meshName])
+  
   const setName = (name) => {
     setMeshName(name);
+    if (tabName === event.target.innerText) {
+      setTabName('')
+      console.log(tabName)
+    } else {
+      setTabName(event.target.innerText)
+      console.log(tabName)
+    }
+
   };
   const popUpBox = useRef(null);
 
@@ -109,21 +130,6 @@ function App() {
         >
           Show me
         </button>
-        {/* <button
-        onClick={() => setPlugDetails(!plugDetails)}
-          style={{
-            width: "100%",
-            padding: "0.5rem",
-            borderRadius: "10px",
-            backgroundColor: "rgb(28 23 22)",
-            color:"rgb(221, 139, 59)",
-            // fontSize: "19px",
-            fontWeight: "bold",
-            marginBottom:"10px"
-          }}
-        >
-          Plugs in details {`(${plugDetails===true ? 'active' : 'inactive'})`}
-        </button> */}
         { 
         <div style={{backgroundColor:'rgb(28 23 22)'}} className="accordion" id="accordionExample">
           <div style={{backgroundColor:'rgb(28 23 22)',color:"rgb(221, 139, 59)"}} className="accordion-item">
@@ -379,7 +385,7 @@ function App() {
                 // blur
               />
             </EffectComposer>
-            <Loader meshName={meshName} boxRef={popUpBox} orbitRotation={rotation}  />
+            <Loader meshName={meshName} boxRef={popUpBox} orbitRotation={rotation} tabName={tabName} />
           </Selection>
           <Environment files={'/assets/models/Concrete_Shelter.exr'} background  />
           {/* <Environment preset="" background  /> */}

@@ -7,7 +7,7 @@ import { Vector3 } from "three";
 import { Select} from '@react-three/postprocessing'
 import { useGLTF } from '@react-three/drei'
 
-export const Loader = ({ meshName, boxRef,orbitRotation },props) => {
+export const Loader = ({ meshName, boxRef,orbitRotation ,tabName},props) => {
   const gltf = useLoader(GLTFLoader, "/assets/models/Engine.gltf");
   const [mesh, setMesh] = useState(null);
   // const [clonerVisibility, setClonerVisibility] = useState(true);
@@ -28,13 +28,6 @@ export const Loader = ({ meshName, boxRef,orbitRotation },props) => {
        let initialPosition = null;
       //  let initialScale = null 
        function onClick(event){
-        console.log('logging')
-        //  console.log(event.target)
-
-        // if (event.target) {
-        //   console.log(event)
-        // }
-       // let changePosition;
        if (draggable.current != null) {
          //if(found.length){}
          if (initialPosition !== null) {
@@ -284,7 +277,7 @@ useEffect(() => {
     <>
         <PerspectiveCamera makeDefault position={[0, 0, 3]} />
 
-          {meshName ==='' && <primitive  object={gltf.scene}  />}
+          {  tabName === ''  && <primitive  object={gltf.scene}  />}
 
    {meshName !=='' &&
     <group {...props} dispose={null}>
