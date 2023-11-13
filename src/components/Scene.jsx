@@ -73,19 +73,19 @@ export const Loader = ({ meshName, boxRef,orbitRotation ,tabName},props) => {
             console.log('here3', initialPosition)
             // Change the position of the mesh when picked up 
             if(draggable.current.userData.name ==='B1_1_10'|| draggable.current.userData.name ==='B1_1_11'  || draggable.current.userData.name ==='B1_1_7'  || draggable.current.userData.name ==='B2_1_4' || draggable.current.userData.name ==='B2_1_5' ){
-              draggable.current.position.y += -50;
+              draggable.current.position.y += -200;
               
             }
             else if (draggable.current.userData.name ==='B2_1_3' || draggable.current.userData.name ==='B2_1_2') {
-              draggable.current.position.z += 50;
+              draggable.current.position.z += 200;
              
             }
             else if(draggable.current.userData.name ==='B2_1_1'){
-              draggable.current.position.z -= 50;
+              draggable.current.position.z -= 200;
              
             }
             else{
-              draggable.current.position.y += 50;
+              draggable.current.position.y += 200;
               
             }
             console.log(`found draggable`)
