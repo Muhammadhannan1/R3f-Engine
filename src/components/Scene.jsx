@@ -254,7 +254,11 @@ export const Loader = ({ meshName, boxRef,orbitRotation ,tabName},props) => {
         // console.log(mesh)
        focusCameraOnObject(mesh);
         const box = boxRef.current;
-        box.style.display = "block";
+        if (tabName!== '') {
+          box.style.display = "block";
+        } else {
+          box.style.display = "none";
+        }
  
         setSelectedMeshName(meshName);
       // console.log(meshName)
@@ -263,7 +267,7 @@ export const Loader = ({ meshName, boxRef,orbitRotation ,tabName},props) => {
       }
     }
 
-  }, [meshName]);
+  }, [meshName,tabName]);
 
 useEffect(() => {
  window.addEventListener('click',onClick)
@@ -279,7 +283,7 @@ useEffect(() => {
 
           {  tabName === ''  && <primitive  object={gltf.scene}  />}
 
-   {meshName !=='' &&
+   {tabName !=='' &&
     <group {...props} dispose={null}>
       <group position={[0.403, -0.225, -0.83]} rotation={[Math.PI / 2, 0, 0]} scale={[0.004, 0.005, 0.005]}  >
         <group position={[85.087, -4.453, 86.894]} rotation={[0, 0.071, -Math.PI / 2]} scale={[0.776, 1.043, 0.902]} visible={false}>
