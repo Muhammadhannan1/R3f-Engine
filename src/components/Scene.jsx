@@ -288,11 +288,12 @@ export const Loader = ({ meshName, boxRef,orbitRotation ,tabName},props) => {
         // console.log(mesh)
        focusCameraOnObject(mesh);
         const box = boxRef.current;
-        if (tabName!== '') {
-          box.style.display = "block";
-        } else {
-          box.style.display = "none";
-        }
+        box.style.display = "block";
+        // if (tabName!== '') {
+        //   box.style.display = "block";
+        // } else {
+        //   box.style.display = "none";
+        // }
  
         setSelectedMeshName(meshName);
       // console.log(meshName)
