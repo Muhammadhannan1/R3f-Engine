@@ -1,4 +1,4 @@
-import {PerspectiveCamera } from "@react-three/drei";
+import {PerspectiveCamera, useAnimations } from "@react-three/drei";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader";
 import { useLoader, useThree, useFrame } from "@react-three/fiber";
 import { useEffect, useRef, useState } from "react";
@@ -19,6 +19,9 @@ export const Loader = ({ meshName, boxRef,orbitRotation ,tabName},props) => {
   const ref = useRef(null);
   const outlineRef = useRef(null);
   const { nodes, materials } = useGLTF('/assets/models/Engine.gltf')
+  // const { animations } = useGLTF('/assets/models/glb.glb')
+  // const {actions} = useAnimations(animations)
+  
   const clickMouse = new THREE.Vector2();  // create once
   const draggable = useRef(null);
      function intersect(pos) {
@@ -28,37 +31,65 @@ export const Loader = ({ meshName, boxRef,orbitRotation ,tabName},props) => {
        let initialPosition = null;
       //  let initialScale = null 
        function onClick(event){
-       if (draggable.current != null) {
+        clickMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+      
+        const found = intersect(clickMouse);
+        // if(found[0].object.userData.name == null && found[0].object.userData.name !== draggable.current.userData.name  ){
+        //   return 
+        // }
+       if (draggable.current != null ) {
          //if(found.length){}
-         if (initialPosition !== null) {
-           console.log('here1',initialPosition)
-          draggable.current.position.copy(initialPosition);
-          initialPosition = null;  
-          // setClonerVisibility(true); 
+        //  if (initialPosition !== null) {
+        //    console.log('here1',initialPosition)
+        //   draggable.current.position.copy(initialPosition);
+        //   initialPosition = null;  
+        //   // setClonerVisibility(true); 
+        // }
+        if(draggable.current.userData.name === found[0].object.userData.name){
+
+        
+        if(draggable.current.userData.name ==='B1_1_10'|| draggable.current.userData.name ==='B1_1_11'  || draggable.current.userData.name ==='B1_1_7'  || draggable.current.userData.name ==='B2_1_4' || draggable.current.userData.name ==='B2_1_5' ){
+          draggable.current.position.y -= -200;
+          
+        }
+        else if (draggable.current.userData.name ==='B2_1_3' || draggable.current.userData.name ==='B2_1_2') {
+          draggable.current.position.z -= 200;
+         
+        }
+        else if(draggable.current.userData.name ==='B2_1_1'){
+          draggable.current.position.z += 200;
+         
+        }
+        else{
+          draggable.current.position.y -= 200;
+          
         }
           console.log('here2',initialPosition)
           draggable.current = null;
+          setVisibility(true)
           console.log(`dropping draggable`)
           // setClonerVisibility(true)
         return;
       }
+      else{
+        return
+      }
+      }
       
     
       // THREE RAYCASTER
-      clickMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-      clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-    
-      const found = intersect(clickMouse);
+  
       // console.log(found[0])
-      for (let i = 0; i < found.length; i++) {
-        // console.log(found[i].object)
-      }
+      // for (let i = 0; i < found.length; i++) {
+      //   console.log(found[i].object)
+      // }
       
-      console.log(found.length)
+      // console.log(found.length)
       if (found.length > 0) {
         
         draggable.current = found[0].object
-
+       
           // initialPosition = draggable.current.position.clone();
           // changePosition = initialPosition.add(new THREE.Vector3(0, 8, 0))
          
@@ -67,10 +98,11 @@ export const Loader = ({ meshName, boxRef,orbitRotation ,tabName},props) => {
             // console.log(initialPosition)
            
           
-          if(draggable.current.userData.name && draggable.current.userData.name.startsWith('B')){
+          if(draggable.current.userData.name && draggable.current.userData.name.startsWith('B') && draggable.current.userData.name===meshName ){
             // gltf.scene.children[0].children[3].children[1].children[5].children[0].visible = false;
             initialPosition = draggable.current.position.clone(); 
             console.log('here3', initialPosition)
+            setVisibility(false)
             // Change the position of the mesh when picked up 
             if(draggable.current.userData.name ==='B1_1_10'|| draggable.current.userData.name ==='B1_1_11'  || draggable.current.userData.name ==='B1_1_7'  || draggable.current.userData.name ==='B2_1_4' || draggable.current.userData.name ==='B2_1_5' ){
               draggable.current.position.y += -200;
@@ -93,8 +125,10 @@ export const Loader = ({ meshName, boxRef,orbitRotation ,tabName},props) => {
    
           }
           else{
-            // console.log('clicked',draggable.current);
             draggable.current = null;
+            // console.log('clicked',draggable.current);
+            draggable.current.position.copy(initialPosition);
+            initialPosition = null;  
             return null;
           }
           // setClonerVisibility(false)
@@ -229,11 +263,11 @@ export const Loader = ({ meshName, boxRef,orbitRotation ,tabName},props) => {
 
 
   useEffect(() => {
-    if (meshName==='') {
-      setVisibility(true)
-    } else {
-      setVisibility(false)
-    }
+    // if (meshName==='') {
+    //   setVisibility(true)
+    // } else {
+    //   setVisibility(false)
+    // }
     if (meshName !== "") {
       var childrens;
       if (meshName.startsWith("B1")) {
@@ -270,25 +304,32 @@ export const Loader = ({ meshName, boxRef,orbitRotation ,tabName},props) => {
   }, [meshName,tabName]);
 
 useEffect(() => {
+
  window.addEventListener('click',onClick)
 
   return () => {
     window.removeEventListener('click', onClick);
   } 
 }, [onClick])
+// useEffect(() => {
+//   console.log('animations',animations)
+//   console.log('actions',actions)
+// }, [])
 
   return (
     <>
         <PerspectiveCamera makeDefault position={[0, 0, 3]} />
 
-          {  tabName === ''  && <primitive  object={gltf.scene}  />}
+          { Visibility === true &&  <primitive  object={gltf.scene}  />}
+          {/* {  tabName === ''  && <primitive  object={gltf.scene}  />} */}
 
-   {tabName !=='' &&
+   {
+  //  tabName !=='' &&
     <group {...props} dispose={null}>
       <group position={[0.403, -0.225, -0.83]} rotation={[Math.PI / 2, 0, 0]} scale={[0.004, 0.005, 0.005]}  >
-        <group position={[85.087, -4.453, 86.894]} rotation={[0, 0.071, -Math.PI / 2]} scale={[0.776, 1.043, 0.902]} visible={false}>
-          <mesh geometry={nodes.Gearbox.geometry} material={materials['01 - Default3']} position={[-24.608, -185.514, 17.744]} rotation={[0.083, 0, Math.PI / 2]} scale={[2.683, 2.778, 2.404]} visible={false} />
-          <mesh geometry={nodes.Tubes.geometry} material={materials['07 - Default']} position={[66.348, -156.709, 34.764]} rotation={[0.083, 0, Math.PI / 2]} scale={[2.683, 2.778, 2.404]} visible={false} />
+        <group position={[85.087, -4.453, 86.894]} rotation={[0, 0.071, -Math.PI / 2]} scale={[0.776, 1.043, 0.902]} visible={Visibility}>
+          <mesh geometry={nodes.Gearbox.geometry} material={materials['01 - Default3']} position={[-24.608, -185.514, 17.744]} rotation={[0.083, 0, Math.PI / 2]} scale={[2.683, 2.778, 2.404]} visible={Visibility} />
+          <mesh geometry={nodes.Tubes.geometry} material={materials['07 - Default']} position={[66.348, -156.709, 34.764]} rotation={[0.083, 0, Math.PI / 2]} scale={[2.683, 2.778, 2.404]} visible={Visibility} />
           <group position={[-37.636, -196.176, -44.021]} rotation={[0.083, 0, Math.PI / 2]} scale={[2.683, 2.778, 2.404]} visible = {false} >
             <mesh geometry={nodes.Cylinder_1.geometry} material={materials['07 - Default']} />
           </group>
@@ -400,14 +441,14 @@ useEffect(() => {
           </group>
          <group position={[5.357, 4.016, 19.474]}>
             <mesh geometry={nodes.Stationary_Wings_1.geometry} material={materials['01 - Default2']} position={[-95.835, 0, 0]} scale={[2.5, 2.155, 2.155]} />
-            <mesh geometry={nodes.Null.geometry} material={materials['07 - Default']} position={[-523.633, 0.261, -0.723]} scale={[2.5, 2.155, 2.155]}  visible={false}/>
-            <mesh geometry={nodes.Cloner_1.geometry} material={materials['Matt Chrome2']} position={[-309.143, 0, 0]} scale={[2.5, 2.155, 2.155]} visible={false}/>
-            <mesh geometry={nodes.Null_2.geometry} material={materials['Matt Chrome2']} position={[-345.45, 0.433, -0.119]} scale={[2.5, 2.155, 2.155]}  visible={false} />
+            <mesh geometry={nodes.Null.geometry} material={materials['07 - Default']} position={[-523.633, 0.261, -0.723]} scale={[2.5, 2.155, 2.155]}  visible={Visibility}/>
+            <mesh geometry={nodes.Cloner_1.geometry} material={materials['Matt Chrome2']} position={[-309.143, 0, 0]} scale={[2.5, 2.155, 2.155]} visible={Visibility}/>
+            <mesh geometry={nodes.Null_2.geometry} material={materials['Matt Chrome2']} position={[-345.45, 0.433, -0.119]} scale={[2.5, 2.155, 2.155]}  visible={Visibility} />
             <mesh geometry={nodes.Nuts.geometry} material={materials['Matt Chrome']} position={[-254.432, 0, 0]} scale={[2.5, 2.155, 2.155]} />
            <group position={[-280.77, 0, 0]} scale={[2.5, 2.155, 2.155]}>
-            <mesh geometry={nodes.Null_Cloner_1.geometry} material={materials['01 - Default']} visible={false} />
-            <mesh geometry={nodes.Null_Cloner_2.geometry} material={materials['01 - Default2']} visible={false} />
-            <mesh geometry={nodes.Null_Cloner_3.geometry} material={materials['01 - Default23']} visible={false} />
+            <mesh geometry={nodes.Null_Cloner_1.geometry} material={materials['01 - Default']} visible={Visibility} />
+            <mesh geometry={nodes.Null_Cloner_2.geometry} material={materials['01 - Default2']} visible={Visibility} />
+            <mesh geometry={nodes.Null_Cloner_3.geometry} material={materials['01 - Default23']} visible={Visibility} />
           </group>
           </group>
           <group position={[-98.473, 4.016, 19.474]}>
@@ -426,20 +467,20 @@ useEffect(() => {
             <mesh geometry={nodes['2_2'].geometry} material={materials['07 - Default']} position={[104.97, 0, 0]} scale={[2.5, 2.155, 2.155]} />
             <mesh geometry={nodes['1_2'].geometry} material={materials['07 - Default']} position={[135.019, 0, 0]} scale={[2.5, 2.155, 2.155]} />
           </group>
-          <mesh geometry={nodes.Cloner_4.geometry} material={materials['07 - Default']} position={[-296.999, 4.016, 19.474]} scale={[2.5, 2.155, 2.155]} visible={false} />
+          <mesh geometry={nodes.Cloner_4.geometry} material={materials['07 - Default']} position={[-296.999, 4.016, 19.474]} scale={[2.5, 2.155, 2.155]} visible={Visibility} />
           <mesh geometry={nodes.Cylinder_3.geometry} material={materials['01 - Default']} position={[-151.903, 4.016, 19.6]} scale={[2.5, 2.155, 2.155]} />
           <mesh geometry={nodes.Cloth_Surface_1.geometry} material={materials['01 - Default']} position={[74.285, 4.016, 19.474]} scale={[2.5, 2.155, 2.155]} />
           <mesh geometry={nodes.Nuts_2.geometry} material={nodes.Nuts_2.material} position={[44.4, -5.115, -55.908]} scale={[2.5, 2.155, 2.155]} />
-          <mesh geometry={nodes.Remesh_2.geometry} material={materials['Matt Chrome']} position={[45.381, 0.677, -68.718]} scale={[2.5, 2.155, 2.155]}  visible={false}/>
+          <mesh geometry={nodes.Remesh_2.geometry} material={materials['Matt Chrome']} position={[45.381, 0.677, -68.718]} scale={[2.5, 2.155, 2.155]}  visible={Visibility}/>
         </group>
         <group position={[193.137, 2.823, -22.473]}>
-          <mesh geometry={nodes.Nuts_3.geometry} material={materials['01 - Default']} position={[-3.147, 0, 0]} scale={[2.5, 2.155, 2.155]} />
+          <mesh geometry={nodes.Nuts_3.geometry} material={materials['07 - Default']} position={[-3.147, 0, 0]} scale={[2.5, 2.155, 2.155]} visible={Visibility}/>
           <group position={[37.049, 0, 0]} scale={[2.5, 2.155, 2.155]}>
-            <mesh geometry={nodes.Boole_2.geometry} material={materials['07 - Default3']}  visible={false}/>
-            <mesh geometry={nodes.Boole_3.geometry} material={materials['07 - Default2']} visible={false} />
+            <mesh geometry={nodes.Boole_2.geometry} material={materials['07 - Default3']}  visible={Visibility}/>
+            <mesh geometry={nodes.Boole_3.geometry} material={materials['07 - Default2']} visible={Visibility} />
 
           </group>
-          <mesh geometry={nodes.Boole_1.geometry} material={materials['01 - Default']} position={[37.049, 0, 0]} scale={[2.5, 2.155, 2.155]} visible={false} />
+          <mesh geometry={nodes.Boole_1.geometry} material={materials['07 - Default']} position={[37.049, 0, 0]} scale={[2.5, 2.155, 2.155]} visible={Visibility} />
           <mesh geometry={nodes['4_3'].geometry} material={materials['01 - Default']} position={[-70.337, 0, 0]} scale={[2.5, 2.155, 2.155]}  />
           <mesh geometry={nodes.Wing_3.geometry} material={materials['01 - Default']} position={[32.461, 0, 0]} scale={[2.5, 2.155, 2.155]} />
           <mesh geometry={nodes.Wing_1.geometry} material={materials['01 - Default']} position={[108.047, 0, 0]} scale={[2.385, 2.056, 2.056]} />
@@ -449,10 +490,10 @@ useEffect(() => {
           </group>
         </group>
       </group>
-      <mesh geometry={nodes['Cloner_(1)'].geometry} material={materials['02 - Default']} position={[0.22, -0.102, -0.817]} rotation={[1.573, 0, 0]} scale={0.01} visible={false}/>
-      <mesh geometry={nodes.Cloner_5.geometry} material={materials['01 - Default2']} position={[0.413, -0.12, -0.817]} rotation={[Math.PI / 2, 0, 0]} scale={0.01} visible={false}  />
-      <mesh geometry={nodes.Moving_Wings_2.geometry} material={materials['01 - Default2']} position={[1.248, -0.12, -0.817]} rotation={[Math.PI / 2, 0, Math.PI]} scale={[0.01, -0.01, 0.01]}  visible={false} />
-      <mesh geometry={nodes.Stationary_Blades.geometry} material={materials['07 - Default']} position={[1.2, -0.12, -0.817]} rotation={[Math.PI / 2, 0, Math.PI]} scale={[0.01, -0.01, 0.01]}  visible={false}/>
+      <mesh geometry={nodes['Cloner_(1)'].geometry} material={materials['02 - Default']} position={[0.22, -0.102, -0.817]} rotation={[1.573, 0, 0]} scale={0.01} visible={Visibility}/>
+      <mesh geometry={nodes.Cloner_5.geometry} material={materials['01 - Default2']} position={[0.413, -0.12, -0.817]} rotation={[Math.PI / 2, 0, 0]} scale={0.01} visible={Visibility}  />
+      <mesh geometry={nodes.Moving_Wings_2.geometry} material={materials['01 - Default2']} position={[1.248, -0.12, -0.817]} rotation={[Math.PI / 2, 0, Math.PI]} scale={[0.01, -0.01, 0.01]}  visible={Visibility} />
+      <mesh geometry={nodes.Stationary_Blades.geometry} material={materials['07 - Default']} position={[1.2, -0.12, -0.817]} rotation={[Math.PI / 2, 0, Math.PI]} scale={[0.01, -0.01, 0.01]}  visible={Visibility}/>
     </group>}
 
 
