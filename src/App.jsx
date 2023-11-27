@@ -18,9 +18,10 @@ import {
 import { BlendFunction, Resizer, KernelSize } from 'postprocessing'
 import Spinner from "./components/Spinner";
 const data = {
-  B1_1_2_2: { plug: "B1-0", stage: "1", blades: "36", stage_2: "1" },
+  B1_1_2_2: { plug: "B1-2", stage: "3", blades: "42", stage_2: "2" },
   B1_1_1: { plug: "B1-1", stage: "2", blades: "26", stage_2: "1" },
-  B1_1_2: { plug: "B1-2", stage: "3", blades: "42", stage_2: "2" },
+  B1_1_2: { plug: "B1-0", stage: "1", blades: "36", stage_2: "1" },
+  // B1_1_2: { plug: "B1-2", stage: "3", blades: "42", stage_2: "2" },
   B1_1_3: { plug: "B1-3", stage: "4", blades: "46", stage_2: "3" },
   B1_1_4: { plug: "B1-4", stage: "5", blades: "48", stage_2: "4" },
   B1_1_5: { plug: "B1-5", stage: "6", blades: "54", stage_2: "5" },
@@ -334,7 +335,7 @@ function App() {
           display: "none",
         }}
       >
-        {/* {meshName !== "" && data[meshName] && meshName.startsWith("B2") ? (
+        {meshName !== "" && data[meshName] && meshName.startsWith("B2") ? (
           <>
             <div>Plug {data[meshName].plug}</div>
             {data[meshName].position} o'clock position
@@ -353,13 +354,13 @@ function App() {
               </>
             )}
           </>
-        )} */}
-        {meshName !== "" && data2[meshName] && 
+        )}
+        {/* {meshName !== "" && data2[meshName] && 
            <>
            {data2[meshName].text}
           
            </>
-        }
+        } */}
       </div>
 
       {/* <Environment preset="sunset" background /> */}
@@ -367,7 +368,7 @@ function App() {
       <Canvas>
         {/* <PerspectiveCamera makeDefault position={[0, 0, 5]} /> */}
         
-        <OrbitControls enableRotate={rotation} enableDamping={false} />
+        <OrbitControls enableRotate={true} enableDamping={false} />
         <ambientLight intensity={0.7} />
         <pointLight position={[10, 10, 10]} />
           <Selection>

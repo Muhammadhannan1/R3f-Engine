@@ -50,19 +50,19 @@ export const Loader = ({ meshName, boxRef,orbitRotation ,tabName},props) => {
 
         
         if(draggable.current.userData.name ==='B1_1_10'|| draggable.current.userData.name ==='B1_1_11'  || draggable.current.userData.name ==='B1_1_7'  || draggable.current.userData.name ==='B2_1_4' || draggable.current.userData.name ==='B2_1_5' ){
-          draggable.current.position.y -= -200;
+          draggable.current.position.y -= -100;
           
         }
         else if (draggable.current.userData.name ==='B2_1_3' || draggable.current.userData.name ==='B2_1_2') {
-          draggable.current.position.z -= 200;
+          draggable.current.position.z -= 100;
          
         }
         else if(draggable.current.userData.name ==='B2_1_1'){
-          draggable.current.position.z += 200;
+          draggable.current.position.z += 100;
          
         }
         else{
-          draggable.current.position.y -= 200;
+          draggable.current.position.y -= 100;
           
         }
           console.log('here2',initialPosition)
@@ -105,19 +105,19 @@ export const Loader = ({ meshName, boxRef,orbitRotation ,tabName},props) => {
             setVisibility(false)
             // Change the position of the mesh when picked up 
             if(draggable.current.userData.name ==='B1_1_10'|| draggable.current.userData.name ==='B1_1_11'  || draggable.current.userData.name ==='B1_1_7'  || draggable.current.userData.name ==='B2_1_4' || draggable.current.userData.name ==='B2_1_5' ){
-              draggable.current.position.y += -200;
+              draggable.current.position.y += -100;
               
             }
             else if (draggable.current.userData.name ==='B2_1_3' || draggable.current.userData.name ==='B2_1_2') {
-              draggable.current.position.z += 200;
+              draggable.current.position.z += 100;
              
             }
             else if(draggable.current.userData.name ==='B2_1_1'){
-              draggable.current.position.z -= 200;
+              draggable.current.position.z -= 100;
              
             }
             else{
-              draggable.current.position.y += 200;
+              draggable.current.position.y += 100;
               
             }
             console.log(`found draggable`)
@@ -142,83 +142,105 @@ export const Loader = ({ meshName, boxRef,orbitRotation ,tabName},props) => {
       // const distance = 1; // Adjust the initial distance as needed for the desired zoom level
       let targetPosition ;
       if(meshName==='B1_1_2_2'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-98, -30, 10));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-98, -40, 12));
         // targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-98, -10, 40));
       }
       else if(meshName==='B1_1_1' ){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-130, -24, 20));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-130, -41, 11));
         // targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-138, -10, 40));
       }
       else if(meshName==='B1_1_2'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-156, -20, 55));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-158, -24, 47));
         // targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-168, 0, 70));
       }
+      // else if(meshName==='B1_1_3'){
+      //   camera.zoom = 10
+      //   targetPosition =new THREE.Vector3(0.9900165397420635, -7.354256376706968, 10.164654832105827);
+      //   // targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-78, -39, 10));
+      // }
+      // else if(meshName==='B1_1_4'){
+      //   camera.zoom = 10
+      //   targetPosition =new THREE.Vector3(0.9900165397420635, -7.354256376706968, 10.164654832105827);
+      //   // targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-57, -40, 15));
+      // }
+      // else if( meshName==='B1_1_5'){
+      //   camera.zoom = 10
+      //   targetPosition =new THREE.Vector3(0.9900165397420635, -7.354256376706968, 10.164654832105827);
+      //   // targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-38, -25, 15));
+      // }
+      // else if( meshName==='B1_1_6'){
+      //   camera.zoom = 10
+      //   targetPosition =new THREE.Vector3(0.9900165397420635, -7.354256376706968, 10.164654832105827);
+      //   // targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-22, -26, 15));
+      // }
       else if(meshName==='B1_1_3'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-78, -25, 14));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-78, -39, 10));
         // targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-68, 1, 30));
       }
       else if(meshName==='B1_1_4'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-57, -33, 15));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-57, -43, 10));
       }
       else if( meshName==='B1_1_5'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-38, -25, 15));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-38, -40, 6));
       }
       else if( meshName==='B1_1_6'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-22, -26, 15));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-22, -44, 2));
       }
       else if( meshName==='B1_1_7'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(0, 100, 40));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(0, 96, 47));
       }
       else if( meshName==='B1_1_8'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(25, 5, 90));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(25, 1, 80));
       }
       else if( meshName==='B1_1_9'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(42, 0, 90));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(42, 8, 80));
       }
       else if(meshName==='B1_1_10'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(60, 122, 0));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(60, 120, 14));
         // targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(40, 150, -20));
       }
       else if(meshName==='B1_1_11'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(77, 114,10));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(77, 108,25));
         // targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(40, 150, -20));
       }
       else if(meshName==='B1_1_12'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(98, -28, 0));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(102, -28, -10));
       }
       else if( meshName==='B1_1_13'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(119, -25, 0));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(122, -25,-14));
       }
       else if (meshName==='B2_1_1'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3( 0, -65, 120));
+        // targetPosition = objectToFocus.position.clone().add(new THREE.Vector3( 4, -65, 108));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-20, -70, 105));
       }
       else if (meshName==='B2_1_2'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(0, -50, -40));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-15, -75, -50));
+        // targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-10, -60, -30));
       }
       else if (meshName==='B2_1_3'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(0,35,-100));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-10,13,-93));
       }
       else if (meshName==='B2_1_4'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(0, 75, 0));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-10, 76, 10));
         // targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-70, 90, 0));
       }
       else if (meshName==='B2_1_5'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(0, 55, 50));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-7, 56, 57));
       }
       else if(meshName==='B3_1'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-100, -15, 40));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-92, -25, 20));
       }
       else if( meshName==='B3_2'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-70, 15, -10));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-60, 5, -40));
       }
       else if(meshName==='B4_1' ){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-20, -32, 60));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-10, -42, 50));
       }
       else if(meshName==='B4_1_2' ){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(10, -40, 45));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(20, -50, 35));
       }
       else if(meshName==='B4_1_3'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(60, -60, 70));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(70, -65, 55));
       }
       else{
         targetPosition = objectToFocus.position.clone();
@@ -243,7 +265,7 @@ export const Loader = ({ meshName, boxRef,orbitRotation ,tabName},props) => {
         camera.lookAt(targetPosition);
         // camera.lookAt(targetPosition);
        camera.fov = 4; 
-
+  
         if (progress < 1) {
           requestAnimationFrame(updateCamera);
         }
@@ -254,12 +276,6 @@ export const Loader = ({ meshName, boxRef,orbitRotation ,tabName},props) => {
     }
   };
 
-
-  // const useFullChildrens = gltf.scene.children[0].children[3].children[0].children;
-
-  // console.log(gltf.scene.children[0].children[3].children[0].children)
-  // console.log(gltf.scene.children[0].children[3].children[1].children[5].children[0])
-  // console.log(gltf.scene)
 
 
   useEffect(() => {
@@ -307,7 +323,7 @@ export const Loader = ({ meshName, boxRef,orbitRotation ,tabName},props) => {
 useEffect(() => {
 
  window.addEventListener('click',onClick)
-
+ console.log(camera)
   return () => {
     window.removeEventListener('click', onClick);
   } 
@@ -316,9 +332,16 @@ useEffect(() => {
 //   console.log('animations',animations)
 //   console.log('actions',actions)
 // }, [])
-
+// 0.9900165397420635
+// y
+// : 
+// -7.154256376706968
+// z
+// : 
+// 10.164654832105827
   return (
     <>
+        {/* <PerspectiveCamera makeDefault position={[0.9900165397420635, -7.354256376706968, 10.164654832105827]} zoom={10}/> */}
         <PerspectiveCamera makeDefault position={[0, 0, 3]} />
 
           { Visibility === true &&  <primitive  object={gltf.scene}  />}
