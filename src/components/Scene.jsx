@@ -13,6 +13,7 @@ export const Loader = ({ meshName, boxRef,orbitRotation ,tabName},props) => {
   // const [clonerVisibility, setClonerVisibility] = useState(true);
   const [selectedMeshName, setSelectedMeshName] = useState(null);
   const [volumeMeshVisibility, setVolumeMeshVisibility] = useState(null);
+  const [position, setPosition] = useState([0,0,0])
   const [Visibility, setVisibility] = useState(true);
   const { camera,scene,raycaster } = useThree();
   const selectedObjectRef = useRef(null);
@@ -150,29 +151,9 @@ export const Loader = ({ meshName, boxRef,orbitRotation ,tabName},props) => {
         // targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-138, -10, 40));
       }
       else if(meshName==='B1_1_2'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-158, -24, 47));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-157, -30, 44));
         // targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-168, 0, 70));
       }
-      // else if(meshName==='B1_1_3'){
-      //   camera.zoom = 10
-      //   targetPosition =new THREE.Vector3(0.9900165397420635, -7.354256376706968, 10.164654832105827);
-      //   // targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-78, -39, 10));
-      // }
-      // else if(meshName==='B1_1_4'){
-      //   camera.zoom = 10
-      //   targetPosition =new THREE.Vector3(0.9900165397420635, -7.354256376706968, 10.164654832105827);
-      //   // targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-57, -40, 15));
-      // }
-      // else if( meshName==='B1_1_5'){
-      //   camera.zoom = 10
-      //   targetPosition =new THREE.Vector3(0.9900165397420635, -7.354256376706968, 10.164654832105827);
-      //   // targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-38, -25, 15));
-      // }
-      // else if( meshName==='B1_1_6'){
-      //   camera.zoom = 10
-      //   targetPosition =new THREE.Vector3(0.9900165397420635, -7.354256376706968, 10.164654832105827);
-      //   // targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-22, -26, 15));
-      // }
       else if(meshName==='B1_1_3'){
         targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-78, -39, 10));
         // targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-68, 1, 30));
@@ -228,7 +209,7 @@ export const Loader = ({ meshName, boxRef,orbitRotation ,tabName},props) => {
         targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-7, 56, 57));
       }
       else if(meshName==='B3_1'){
-        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-92, -25, 20));
+        targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-90, -32, 18));
       }
       else if( meshName==='B3_2'){
         targetPosition = objectToFocus.position.clone().add(new THREE.Vector3(-60, 5, -40));
@@ -344,12 +325,12 @@ useEffect(() => {
         {/* <PerspectiveCamera makeDefault position={[0.9900165397420635, -7.354256376706968, 10.164654832105827]} zoom={10}/> */}
         <PerspectiveCamera makeDefault position={[0, 0, 3]} />
 
-          { Visibility === true &&  <primitive  object={gltf.scene}  />}
+          { Visibility === true &&  <primitive  object={gltf.scene} position={position}  />}
           {/* {  tabName === ''  && <primitive  object={gltf.scene}  />} */}
 
    {
   //  tabName !=='' &&
-    <group {...props} dispose={null}>
+    <group {...props} dispose={null} position={position} >
       <group position={[0.403, -0.225, -0.83]} rotation={[Math.PI / 2, 0, 0]} scale={[0.004, 0.005, 0.005]}  >
         <group position={[85.087, -4.453, 86.894]} rotation={[0, 0.071, -Math.PI / 2]} scale={[0.776, 1.043, 0.902]} visible={Visibility}>
           <mesh geometry={nodes.Gearbox.geometry} material={materials['01 - Default3']} position={[-24.608, -185.514, 17.744]} rotation={[0.083, 0, Math.PI / 2]} scale={[2.683, 2.778, 2.404]} visible={Visibility} />
